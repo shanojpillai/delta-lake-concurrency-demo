@@ -1,0 +1,13 @@
+{% if notebook_path %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Jupyter Notebook</h5>
+    </div>
+    <div class="card-body">
+        <p>You can also explore this functionality in the Jupyter notebook:</p>
+        <a href="http://localhost:8888/notebooks/{{ notebook_path }}" target="_blank" class="btn btn-primary">
+            <i class="fas fa-external-link-alt mr-2"></i>Open Notebook
+        </a>
+    </div>
+</div>
+{% endif %}

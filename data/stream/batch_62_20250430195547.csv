@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-54342,2025-03-14,2025-04-18,Second Class,CG-64703,Test-Customer-0,Consumer,United States,Houston,Arizona,77001,South,PROD-61869,Technology,Storage,Product 0,414.01,6,0.1,420.97,62,2025-04-30 19:55:47,stream
+2,TEST-53346,2024-12-21,2025-04-24,Standard Class,CG-84293,Test-Customer-1,Home Office,United States,Houston,Texas,90001,East,PROD-28956,Technology,Chairs,Product 1,770.55,2,0.3,-91.76,62,2025-04-30 19:55:47,stream
+3,TEST-94967,2024-06-26,2025-04-17,Same Day,CG-93072,Test-Customer-2,Consumer,United States,New York,Arizona,77001,East,PROD-88472,Furniture,Chairs,Product 2,66.35,7,0.5,473.77,62,2025-04-30 19:55:47,stream
+4,TEST-69511,2024-05-03,2025-04-09,Second Class,CG-30002,Test-Customer-3,Home Office,United States,Chicago,Illinois,10001,East,PROD-97572,Furniture,Tables,Product 3,697.33,5,0.3,394.46,62,2025-04-30 19:55:47,stream
+5,TEST-43153,2024-06-03,2025-04-11,Second Class,CG-96627,Test-Customer-4,Consumer,United States,Houston,Illinois,85001,East,PROD-46588,Furniture,Storage,Product 4,206.36,9,0.0,466.51,62,2025-04-30 19:55:47,stream
+6,TEST-49431,2025-03-20,2025-04-12,Second Class,CG-41253,Test-Customer-5,Corporate,United States,Chicago,Arizona,85001,West,PROD-39420,Technology,Storage,Product 5,374.04,5,0.0,87.46,62,2025-04-30 19:55:47,stream
+7,TEST-86463,2024-05-04,2025-04-24,First Class,CG-81638,Test-Customer-6,Home Office,United States,Houston,Arizona,90001,Central,PROD-50156,Office Supplies,Storage,Product 6,112.94,9,0.5,-63.9,62,2025-04-30 19:55:47,stream
+8,TEST-36598,2024-05-23,2025-04-18,Second Class,CG-58530,Test-Customer-7,Consumer,United States,New York,Arizona,77001,East,PROD-35234,Technology,Storage,Product 7,383.94,1,0.3,168.62,62,2025-04-30 19:55:47,stream
+9,TEST-14213,2024-11-14,2025-04-29,First Class,CG-70471,Test-Customer-8,Home Office,United States,New York,Arizona,60601,South,PROD-21623,Technology,Storage,Product 8,265.01,5,0.4,176.5,62,2025-04-30 19:55:47,stream
+10,TEST-33527,2025-04-19,2025-04-07,Same Day,CG-92173,Test-Customer-9,Home Office,United States,Houston,Texas,10001,West,PROD-88344,Furniture,Binders,Product 9,812.5,8,0.4,424.95,62,2025-04-30 19:55:47,stream

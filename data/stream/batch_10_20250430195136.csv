@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-78070,2024-08-18,2025-04-29,Standard Class,CG-54836,Test-Customer-0,Corporate,United States,Los Angeles,Arizona,77001,West,PROD-34829,Furniture,Tables,Product 0,395.54,8,0.4,489.49,10,2025-04-30 19:51:36,stream
+2,TEST-84412,2025-02-16,2025-04-22,First Class,CG-73905,Test-Customer-1,Corporate,United States,Houston,Texas,60601,East,PROD-57886,Technology,Chairs,Product 1,290.2,5,0.2,465.09,10,2025-04-30 19:51:36,stream
+3,TEST-48822,2024-10-24,2025-04-15,Same Day,CG-92870,Test-Customer-2,Home Office,United States,Los Angeles,California,60601,Central,PROD-55854,Technology,Phones,Product 2,235.2,7,0.1,355.33,10,2025-04-30 19:51:36,stream
+4,TEST-85826,2025-03-13,2025-04-27,Same Day,CG-11814,Test-Customer-3,Home Office,United States,Chicago,Arizona,85001,Central,PROD-79781,Technology,Binders,Product 3,921.93,9,0.1,7.45,10,2025-04-30 19:51:36,stream
+5,TEST-12869,2025-03-04,2025-04-13,First Class,CG-57446,Test-Customer-4,Home Office,United States,New York,Illinois,60601,South,PROD-44457,Furniture,Storage,Product 4,527.86,8,0.2,-37.15,10,2025-04-30 19:51:36,stream
+6,TEST-43362,2024-10-20,2025-04-26,Same Day,CG-51933,Test-Customer-5,Corporate,United States,Houston,Illinois,10001,West,PROD-42112,Furniture,Chairs,Product 5,929.76,9,0.3,431.2,10,2025-04-30 19:51:36,stream
+7,TEST-81569,2024-11-11,2025-04-28,First Class,CG-83413,Test-Customer-6,Consumer,United States,Phoenix,New York,10001,Central,PROD-88719,Office Supplies,Tables,Product 6,15.7,7,0.4,-44.3,10,2025-04-30 19:51:36,stream
+8,TEST-40756,2025-02-03,2025-04-08,Second Class,CG-55435,Test-Customer-7,Corporate,United States,Chicago,Arizona,85001,East,PROD-53371,Technology,Tables,Product 7,447.04,4,0.2,167.92,10,2025-04-30 19:51:36,stream
+9,TEST-46510,2025-03-21,2025-04-14,Standard Class,CG-34930,Test-Customer-8,Consumer,United States,New York,California,85001,South,PROD-29637,Furniture,Phones,Product 8,677.97,5,0.4,294.25,10,2025-04-30 19:51:36,stream
+10,TEST-87706,2024-09-16,2025-04-29,Same Day,CG-49564,Test-Customer-9,Home Office,United States,Houston,Arizona,85001,West,PROD-55828,Furniture,Phones,Product 9,321.82,7,0.4,56.03,10,2025-04-30 19:51:36,stream

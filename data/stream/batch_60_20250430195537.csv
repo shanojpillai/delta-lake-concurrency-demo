@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-76546,2024-08-26,2025-04-14,First Class,CG-50032,Test-Customer-0,Home Office,United States,Chicago,Texas,85001,Central,PROD-74000,Furniture,Chairs,Product 0,867.97,1,0.4,7.95,60,2025-04-30 19:55:37,stream
+2,TEST-19354,2024-06-27,2025-04-25,Same Day,CG-81248,Test-Customer-1,Home Office,United States,Phoenix,Arizona,90001,West,PROD-22109,Furniture,Binders,Product 1,656.75,7,0.1,-68.04,60,2025-04-30 19:55:37,stream
+3,TEST-17034,2024-06-09,2025-04-30,First Class,CG-85879,Test-Customer-2,Home Office,United States,Houston,Arizona,10001,East,PROD-28450,Office Supplies,Tables,Product 2,692.66,4,0.3,88.65,60,2025-04-30 19:55:37,stream
+4,TEST-65805,2024-08-07,2025-04-04,First Class,CG-71714,Test-Customer-3,Consumer,United States,New York,New York,77001,West,PROD-58760,Technology,Phones,Product 3,737.01,9,0.5,212.86,60,2025-04-30 19:55:37,stream
+5,TEST-18008,2024-06-07,2025-04-19,Second Class,CG-13980,Test-Customer-4,Corporate,United States,Chicago,Texas,85001,West,PROD-29142,Furniture,Chairs,Product 4,380.88,7,0.2,462.91,60,2025-04-30 19:55:37,stream
+6,TEST-84309,2025-01-10,2025-04-27,First Class,CG-48308,Test-Customer-5,Corporate,United States,Phoenix,Texas,10001,West,PROD-30346,Office Supplies,Phones,Product 5,940.1,9,0.0,382.23,60,2025-04-30 19:55:37,stream
+7,TEST-55031,2024-11-27,2025-04-25,First Class,CG-18478,Test-Customer-6,Consumer,United States,New York,Texas,10001,South,PROD-42544,Furniture,Phones,Product 6,451.22,6,0.2,126.21,60,2025-04-30 19:55:37,stream
+8,TEST-81208,2024-10-17,2025-04-04,Same Day,CG-12352,Test-Customer-7,Consumer,United States,Chicago,California,60601,Central,PROD-65469,Technology,Tables,Product 7,969.88,7,0.4,-44.67,60,2025-04-30 19:55:37,stream
+9,TEST-12341,2025-04-26,2025-04-17,Second Class,CG-94858,Test-Customer-8,Home Office,United States,New York,Illinois,60601,Central,PROD-50674,Technology,Binders,Product 8,710.82,7,0.4,209.62,60,2025-04-30 19:55:37,stream
+10,TEST-50637,2024-12-28,2025-04-11,Standard Class,CG-32897,Test-Customer-9,Home Office,United States,New York,Arizona,85001,West,PROD-50968,Furniture,Chairs,Product 9,202.48,5,0.3,418.12,60,2025-04-30 19:55:37,stream

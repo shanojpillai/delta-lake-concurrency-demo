@@ -1,0 +1,487 @@
+{% extends "base.html" %}
+
+{% block title %}Time Travel - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-clock me-2"></i>7. Time Travel and Rollback
+        </h1>
+        <div id="alerts-container"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-info-circle me-2"></i>About Time Travel
+            </div>
+            <div class="card-body">
+                <p>This page demonstrates Delta Lake's time travel capabilities. The time travel process:</p>
+                <ol>
+                    <li>Allows querying data at specific versions or timestamps</li>
+                    <li>Enables rollback to previous versions to recover from errors</li>
+                    <li>Provides audit capabilities to understand data changes</li>
+                    <li>Supports point-in-time analysis for compliance and reporting</li>
+                    <li>Balances time travel with storage efficiency</li>
+                </ol>
+                <p>Use the controls to write bad data, query previous versions, and rollback to see how Delta Lake's time travel works.</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-database me-2"></i>Delta Table Information
+                <button class="btn btn-sm btn-outline-primary float-end" onclick="fetchTableInfo()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Current Version:</label>
+                            <div id="table-version">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Record Count:</label>
+                            <div id="record-count">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">File Count:</label>
+                            <div id="file-count">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Table Size:</label>
+                            <div id="table-size">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-history me-2"></i>Table History
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Timestamp</th>
+                                <th>Operation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-exclamation-triangle me-2"></i>Write Bad Data
+            </div>
+            <div class="card-body">
+                <p>First, let's write some bad data to the Delta table to demonstrate recovery:</p>
+                <button type="button" id="write-bad-data-btn" class="btn btn-danger mb-3" onclick="writeBadData()">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Write Bad Data
+                </button>
+                <div class="form-text">This will write 100 corrupted records with negative sales and quantities.</div>
+                
+                <div id="bad-data-output" class="mt-3" style="display: none;">
+                    <h5>Bad Data Result:</h5>
+                    <div class="code-block" id="bad-data-text"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-search me-2"></i>Query Version
+            </div>
+            <div class="card-body">
+                <form id="query-version-form">
+                    <div class="mb-3">
+                        <label for="version-to-query" class="form-label">Version to Query</label>
+                        <input type="number" class="form-control" id="version-to-query" value="0" min="0">
+                        <div class="form-text">Enter the version number to query.</div>
+                    </div>
+                    
+                    <button type="button" id="query-version-btn" class="btn btn-primary" onclick="queryVersion()">
+                        <i class="fas fa-search me-2"></i>Query Version
+                    </button>
+                </form>
+                
+                <div id="query-output" class="mt-3" style="display: none;">
+                    <h5>Query Result:</h5>
+                    <div class="code-block" id="query-text"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-undo me-2"></i>Rollback
+            </div>
+            <div class="card-body">
+                <form id="rollback-form">
+                    <div class="mb-3">
+                        <label for="version-to-rollback" class="form-label">Version to Rollback To</label>
+                        <input type="number" class="form-control" id="version-to-rollback" value="0" min="0">
+                        <div class="form-text">Enter the version number to rollback to.</div>
+                    </div>
+                    
+                    <button type="button" id="rollback-btn" class="btn btn-warning" onclick="rollback()">
+                        <i class="fas fa-undo me-2"></i>Rollback
+                    </button>
+                </form>
+                
+                <div id="rollback-output" class="mt-3" style="display: none;">
+                    <h5>Rollback Result:</h5>
+                    <div class="code-block" id="rollback-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line me-2"></i>Data Quality Metrics
+            </div>
+            <div class="card-body">
+                <canvas id="quality-chart"></canvas>
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="refreshQualityMetrics()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh Metrics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-code me-2"></i>What's Happening Behind the Scenes
+            </div>
+            <div class="card-body">
+                <p>The time travel process involves several key components:</p>
+                
+                <h5>1. Query Data at a Specific Version</h5>
+                <div class="code-block">
+# Query data at a specific version
+df_at_version = spark.read.format("delta").option("versionAsOf", version_to_query).load(delta_table_path)
+count_at_version = df_at_version.count()
+</div>
+                
+                <h5>2. Write Bad Data</h5>
+                <div class="code-block">
+# Generate corrupted data
+corrupted_data = utils.generate_test_data(num_records=200, scenario='corrupted')
+corrupted_df = spark.createDataFrame(corrupted_data)
+
+# Add a marker to identify the corrupted data
+corrupted_df = corrupted_df.withColumn("Data_Quality", lit("corrupted"))
+
+# Write the corrupted data to the Delta table
+corrupted_df.write.format("delta").mode("append").save(delta_table_path)
+</div>
+                
+                <h5>3. Rollback to a Previous Version</h5>
+                <div class="code-block">
+# Rollback to the version before corrupted data was written
+version_to_restore = initial_version
+print(f"Rolling back to version {version_to_restore}...")
+
+# Perform the rollback
+spark.sql(f"RESTORE TABLE delta.`{delta_table_path}` VERSION AS OF {version_to_restore}")
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-arrow-right me-2"></i>Next Steps
+            </div>
+            <div class="card-body">
+                <p>You've completed all the Delta Lake feature demonstrations! Feel free to explore any of the features again or check out the Jupyter notebooks for more detailed examples.</p>
+                <a href="/" class="btn btn-primary">
+                    <i class="fas fa-home me-2"></i>Return to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Global variables
+    let qualityChart;
+    let qualityData = {
+        labels: ['Good Records', 'Records with Negative Sales', 'Records with Negative Quantity'],
+        datasets: [{
+            data: [100, 0, 0],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
+            ],
+            borderColor: [
+                'rgb(75, 192, 192)',
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)'
+            ],
+            borderWidth: 1
+        }]
+    };
+    
+    // Function to write bad data
+    function writeBadData() {
+        // Show loading spinner
+        showLoading();
+        $('#write-bad-data-btn').prop('disabled', true);
+        $('#bad-data-output').hide();
+        
+        // Call the API to write bad data
+        $.ajax({
+            url: '/api/write_bad_data',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({}),
+            success: function(response) {
+                hideLoading();
+                $('#write-bad-data-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Bad data written successfully!', 'success');
+                    $('#bad-data-output').show();
+                    $('#bad-data-text').text(response.message);
+                    
+                    // Refresh table info and metrics
+                    fetchTableInfo();
+                    refreshQualityMetrics();
+                } else {
+                    showAlert('Failed to write bad data: ' + response.error, 'danger');
+                    $('#bad-data-output').show();
+                    $('#bad-data-text').text('Failed to write bad data: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#write-bad-data-btn').prop('disabled', false);
+                showAlert('Error writing bad data: ' + error, 'danger');
+                $('#bad-data-output').show();
+                $('#bad-data-text').text('Error writing bad data: ' + error);
+            }
+        });
+    }
+    
+    // Function to query version
+    function queryVersion() {
+        // Get parameters
+        const version = $('#version-to-query').val();
+        
+        // Show loading spinner
+        showLoading();
+        $('#query-version-btn').prop('disabled', true);
+        $('#query-output').hide();
+        
+        // Call the API to query version
+        $.ajax({
+            url: '/api/query_version',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                version: version
+            }),
+            success: function(response) {
+                hideLoading();
+                $('#query-version-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Version queried successfully!', 'success');
+                    $('#query-output').show();
+                    
+                    // Format the output
+                    const outputText = `Version: ${response.version}\nRecord Count: ${response.count}\n\nSchema:\n${JSON.stringify(response.schema, null, 2)}\n\nSample Data:\n${JSON.stringify(response.sample, null, 2)}`;
+                    $('#query-text').text(outputText);
+                } else {
+                    showAlert('Failed to query version: ' + response.error, 'danger');
+                    $('#query-output').show();
+                    $('#query-text').text('Failed to query version: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#query-version-btn').prop('disabled', false);
+                showAlert('Error querying version: ' + error, 'danger');
+                $('#query-output').show();
+                $('#query-text').text('Error querying version: ' + error);
+            }
+        });
+    }
+    
+    // Function to rollback
+    function rollback() {
+        // Get parameters
+        const version = $('#version-to-rollback').val();
+        
+        // Show loading spinner
+        showLoading();
+        $('#rollback-btn').prop('disabled', true);
+        $('#rollback-output').hide();
+        
+        // Call the API to rollback
+        $.ajax({
+            url: '/api/rollback',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                version: version
+            }),
+            success: function(response) {
+                hideLoading();
+                $('#rollback-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Rollback completed successfully!', 'success');
+                    $('#rollback-output').show();
+                    $('#rollback-text').text(response.message);
+                    
+                    // Refresh table info and metrics
+                    fetchTableInfo();
+                    refreshQualityMetrics();
+                } else {
+                    showAlert('Failed to rollback: ' + response.error, 'danger');
+                    $('#rollback-output').show();
+                    $('#rollback-text').text('Failed to rollback: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#rollback-btn').prop('disabled', false);
+                showAlert('Error rolling back: ' + error, 'danger');
+                $('#rollback-output').show();
+                $('#rollback-text').text('Error rolling back: ' + error);
+            }
+        });
+    }
+    
+    // Function to refresh quality metrics
+    function refreshQualityMetrics() {
+        // Call the API to get quality metrics
+        $.ajax({
+            url: '/api/get_quality_metrics',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // Update chart with new data
+                    qualityData.datasets[0].data = [
+                        response.good_records,
+                        response.negative_sales,
+                        response.negative_quantity
+                    ];
+                    qualityChart.update();
+                } else {
+                    showAlert('Failed to fetch quality metrics: ' + response.error, 'danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                showAlert('Error fetching quality metrics: ' + error, 'danger');
+            }
+        });
+    }
+    
+    // Function to initialize the quality chart
+    function initQualityChart() {
+        const ctx = document.getElementById('quality-chart').getContext('2d');
+        qualityChart = new Chart(ctx, {
+            type: 'pie',
+            data: qualityData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Data Quality Metrics'
+                    }
+                }
+            }
+        });
+    }
+    
+    // Function to update history table with action buttons
+    function updateHistoryTableWithActions(history) {
+        if (history && history.length > 0) {
+            const historyHtml = history.map(entry => `
+                <tr>
+                    <td>${entry.version}</td>
+                    <td>${new Date(entry.timestamp).toLocaleString()}</td>
+                    <td>${entry.operation}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="$('#version-to-query').val(${entry.version}); queryVersion();">
+                            <i class="fas fa-search"></i> Query
+                        </button>
+                        <button class="btn btn-sm btn-outline-warning" onclick="$('#version-to-rollback').val(${entry.version}); rollback();">
+                            <i class="fas fa-undo"></i> Rollback
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            $('#history-table tbody').html(historyHtml);
+        }
+    }
+    
+    // Override the updateTableInfo function to add action buttons
+    function updateTableInfo(metrics, history) {
+        if (metrics) {
+            $('#table-version').text(metrics.current_version);
+            $('#record-count').text(metrics.record_count.toLocaleString());
+            $('#file-count').text(metrics.num_files.toLocaleString());
+            $('#table-size').text(metrics.size_in_mb.toFixed(2) + ' MB');
+        }
+        
+        updateHistoryTableWithActions(history);
+    }
+    
+    // Document ready
+    $(document).ready(function() {
+        // Initialize the quality chart
+        initQualityChart();
+        
+        // Fetch table info on page load
+        fetchTableInfo();
+        
+        // Fetch quality metrics on page load
+        refreshQualityMetrics();
+    });
+</script>
+{% endblock %}

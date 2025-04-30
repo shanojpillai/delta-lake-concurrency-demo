@@ -1,0 +1,511 @@
+{% extends "base.html" %}
+
+{% block title %}Optimize - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-bolt me-2"></i>5. Optimize and Vacuum
+        </h1>
+        <div id="alerts-container"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-info-circle me-2"></i>About Optimize and Vacuum
+            </div>
+            <div class="card-body">
+                <p>This page demonstrates Delta Lake's file management capabilities. The optimization process:</p>
+                <ol>
+                    <li>Uses OPTIMIZE to compact small files for better performance</li>
+                    <li>Implements Z-ORDER BY for data co-location</li>
+                    <li>Uses VACUUM to remove old files and reclaim storage</li>
+                    <li>Shows the impact on query performance and storage usage</li>
+                    <li>Provides best practices for maintenance operations</li>
+                </ol>
+                <p>Use the controls to generate small files, run OPTIMIZE, and see the performance improvements.</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-database me-2"></i>Delta Table Information
+                <button class="btn btn-sm btn-outline-primary float-end" onclick="fetchTableInfo()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Current Version:</label>
+                            <div id="table-version">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Record Count:</label>
+                            <div id="record-count">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">File Count:</label>
+                            <div id="file-count">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Table Size:</label>
+                            <div id="table-size">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-play me-2"></i>Optimization Controls
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5>1. Generate Small Files</h5>
+                    <p>First, generate small files to create a fragmentation problem:</p>
+                    <form id="small-files-form" class="mb-3">
+                        <div class="mb-3">
+                            <label for="batch-count" class="form-label">Number of Batches</label>
+                            <input type="number" class="form-control" id="batch-count" value="10" min="1" max="50">
+                            <div class="form-text">Number of small batches to write.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="records-per-batch" class="form-label">Records per Batch</label>
+                            <input type="number" class="form-control" id="records-per-batch" value="50" min="10" max="100">
+                            <div class="form-text">Number of records in each batch.</div>
+                        </div>
+                        
+                        <button type="button" id="generate-files-btn" class="btn btn-warning" onclick="generateSmallFiles()">
+                            <i class="fas fa-file me-2"></i>Generate Small Files
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="mb-4">
+                    <h5>2. Run OPTIMIZE</h5>
+                    <p>Next, run OPTIMIZE to compact the small files:</p>
+                    <button type="button" id="run-optimize-btn" class="btn btn-success mb-3" onclick="runOptimize()">
+                        <i class="fas fa-bolt me-2"></i>Run OPTIMIZE
+                    </button>
+                </div>
+                
+                <div class="mb-4">
+                    <h5>3. Run Z-ORDER</h5>
+                    <p>Optionally, run Z-ORDER to co-locate related data:</p>
+                    <form id="zorder-form" class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Columns to Z-ORDER BY</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Order Date" id="zorder-order-date" checked>
+                                <label class="form-check-label" for="zorder-order-date">Order Date</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Customer ID" id="zorder-customer-id" checked>
+                                <label class="form-check-label" for="zorder-customer-id">Customer ID</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Product ID" id="zorder-product-id" checked>
+                                <label class="form-check-label" for="zorder-product-id">Product ID</label>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="run-zorder-btn" class="btn btn-primary" onclick="runZOrder()">
+                            <i class="fas fa-sort-amount-down me-2"></i>Run Z-ORDER
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="loading mt-3">
+                    <div class="spinner-border loading-spinner text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Processing...</p>
+                </div>
+                
+                <div id="optimize-output" class="mt-3" style="display: none;">
+                    <h5>Optimization Results:</h5>
+                    <div class="code-block" id="output-text"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-chart-bar me-2"></i>Performance Metrics
+            </div>
+            <div class="card-body">
+                <canvas id="performance-chart"></canvas>
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="refreshPerformanceMetrics()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh Metrics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-history me-2"></i>Table History
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Timestamp</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-code me-2"></i>What's Happening Behind the Scenes
+            </div>
+            <div class="card-body">
+                <p>The optimization process involves several key components:</p>
+                
+                <h5>1. Generate Small Files Problem</h5>
+                <div class="code-block">
+# Function to generate and write a small batch of data
+def write_small_batch(batch_id):
+    # Generate a small batch of data
+    batch_data = utils.generate_test_data(num_records=50, scenario='normal')
+    
+    # Convert to Spark DataFrame
+    batch_df = spark.createDataFrame(batch_data)
+    
+    # Add batch identifier
+    batch_df = batch_df.withColumn("Batch_ID", lit(f"small_batch_{batch_id}"))
+    
+    # Write to Delta table
+    batch_df.write \
+        .format("delta") \
+        .mode("append") \
+        .save(delta_table_path)
+</div>
+                
+                <h5>2. Run OPTIMIZE Command</h5>
+                <div class="code-block">
+# Run OPTIMIZE command
+spark.sql(f"OPTIMIZE delta.`{delta_table_path}`").show()
+</div>
+                
+                <h5>3. Run Z-ORDER BY Command</h5>
+                <div class="code-block">
+# Run Z-ORDER BY command
+spark.sql(f"OPTIMIZE delta.`{delta_table_path}` ZORDER BY (`Order Date`, `Customer ID`, `Product ID`)").show()
+</div>
+                
+                <h5>4. Run VACUUM Command</h5>
+                <div class="code-block">
+# Run VACUUM DRY RUN to see what would be deleted
+vacuum_dry_run = spark.sql(f"VACUUM delta.`{delta_table_path}` RETAIN 0 HOURS DRY RUN").collect()
+num_files_to_delete = len(vacuum_dry_run)
+print(f"Number of files that would be deleted: {num_files_to_delete}")
+
+# Run actual VACUUM
+spark.sql(f"VACUUM delta.`{delta_table_path}` RETAIN 7 DAYS").show()
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-arrow-right me-2"></i>Next Steps
+            </div>
+            <div class="card-body">
+                <p>Once you've explored the optimization capabilities, proceed to the next step to learn about Delta Lake's schema evolution features.</p>
+                <a href="/schema" class="btn btn-primary">
+                    <i class="fas fa-table me-2"></i>Go to Schema Evolution
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Global variables
+    let performanceChart;
+    let beforeMetrics = {
+        fileCount: 0,
+        tableSize: 0,
+        queryTime: 0
+    };
+    let afterMetrics = {
+        fileCount: 0,
+        tableSize: 0,
+        queryTime: 0
+    };
+    
+    // Function to generate small files
+    function generateSmallFiles() {
+        // Get parameters
+        const batchCount = $('#batch-count').val();
+        const recordsPerBatch = $('#records-per-batch').val();
+        
+        // Show loading spinner
+        showLoading();
+        $('#generate-files-btn').prop('disabled', true);
+        $('#optimize-output').hide();
+        
+        // Call the API to generate small files
+        $.ajax({
+            url: '/api/generate_small_files',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                batch_count: batchCount,
+                records_per_batch: recordsPerBatch
+            }),
+            success: function(response) {
+                hideLoading();
+                $('#generate-files-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Small files generated successfully!', 'success');
+                    $('#optimize-output').show();
+                    $('#output-text').text(`Generated ${batchCount} batches with ${recordsPerBatch} records each.\nTotal records added: ${response.total_records}\nTotal files added: ${response.files_added}`);
+                    
+                    // Update before metrics
+                    beforeMetrics.fileCount = response.file_count;
+                    beforeMetrics.tableSize = response.table_size;
+                    beforeMetrics.queryTime = response.query_time || 1.0;
+                    
+                    // Update chart
+                    updatePerformanceChart();
+                    
+                    // Refresh table info
+                    fetchTableInfo();
+                } else {
+                    showAlert('Failed to generate small files: ' + response.error, 'danger');
+                    $('#optimize-output').show();
+                    $('#output-text').text('Failed to generate small files: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#generate-files-btn').prop('disabled', false);
+                showAlert('Error generating small files: ' + error, 'danger');
+                $('#optimize-output').show();
+                $('#output-text').text('Error generating small files: ' + error);
+            }
+        });
+    }
+    
+    // Function to run OPTIMIZE
+    function runOptimize() {
+        // Show loading spinner
+        showLoading();
+        $('#run-optimize-btn').prop('disabled', true);
+        $('#optimize-output').hide();
+        
+        // Call the API to run OPTIMIZE
+        $.ajax({
+            url: '/api/run_optimize',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({}),
+            success: function(response) {
+                hideLoading();
+                $('#run-optimize-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('OPTIMIZE completed successfully!', 'success');
+                    $('#optimize-output').show();
+                    
+                    const fileReduction = response.before_metrics.num_files - response.after_metrics.num_files;
+                    const fileReductionPct = (fileReduction / response.before_metrics.num_files * 100).toFixed(2);
+                    
+                    $('#output-text').text(
+                        `OPTIMIZE completed successfully!\n\n` +
+                        `Files before: ${response.before_metrics.num_files}\n` +
+                        `Files after: ${response.after_metrics.num_files}\n` +
+                        `Files reduced: ${fileReduction} (${fileReductionPct}%)\n\n` +
+                        `Size before: ${response.before_metrics.size_in_mb.toFixed(2)} MB\n` +
+                        `Size after: ${response.after_metrics.size_in_mb.toFixed(2)} MB`
+                    );
+                    
+                    // Update after metrics
+                    afterMetrics.fileCount = response.after_metrics.num_files;
+                    afterMetrics.tableSize = response.after_metrics.size_in_mb;
+                    afterMetrics.queryTime = response.after_metrics.query_time || beforeMetrics.queryTime * 0.7; // Estimate 30% improvement
+                    
+                    // Update chart
+                    updatePerformanceChart();
+                    
+                    // Refresh table info
+                    fetchTableInfo();
+                } else {
+                    showAlert('OPTIMIZE failed: ' + response.error, 'danger');
+                    $('#optimize-output').show();
+                    $('#output-text').text('OPTIMIZE failed: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#run-optimize-btn').prop('disabled', false);
+                showAlert('Error running OPTIMIZE: ' + error, 'danger');
+                $('#optimize-output').show();
+                $('#output-text').text('Error running OPTIMIZE: ' + error);
+            }
+        });
+    }
+    
+    // Function to run Z-ORDER
+    function runZOrder() {
+        // Get selected columns
+        const columns = [];
+        if ($('#zorder-order-date').is(':checked')) columns.push('Order Date');
+        if ($('#zorder-customer-id').is(':checked')) columns.push('Customer ID');
+        if ($('#zorder-product-id').is(':checked')) columns.push('Product ID');
+        
+        if (columns.length === 0) {
+            showAlert('Please select at least one column for Z-ORDER', 'warning');
+            return;
+        }
+        
+        // Show loading spinner
+        showLoading();
+        $('#run-zorder-btn').prop('disabled', true);
+        $('#optimize-output').hide();
+        
+        // Call the API to run Z-ORDER
+        $.ajax({
+            url: '/api/run_zorder',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                columns: columns
+            }),
+            success: function(response) {
+                hideLoading();
+                $('#run-zorder-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Z-ORDER completed successfully!', 'success');
+                    $('#optimize-output').show();
+                    $('#output-text').text(`Z-ORDER BY ${columns.join(', ')} completed successfully!`);
+                    
+                    // Refresh table info
+                    fetchTableInfo();
+                    
+                    // Update query time (estimate 50% improvement)
+                    afterMetrics.queryTime = beforeMetrics.queryTime * 0.5;
+                    updatePerformanceChart();
+                } else {
+                    showAlert('Z-ORDER failed: ' + response.error, 'danger');
+                    $('#optimize-output').show();
+                    $('#output-text').text('Z-ORDER failed: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#run-zorder-btn').prop('disabled', false);
+                showAlert('Error running Z-ORDER: ' + error, 'danger');
+                $('#optimize-output').show();
+                $('#output-text').text('Error running Z-ORDER: ' + error);
+            }
+        });
+    }
+    
+    // Function to refresh performance metrics
+    function refreshPerformanceMetrics() {
+        // Fetch table info
+        fetchTableInfo();
+    }
+    
+    // Function to update performance chart
+    function updatePerformanceChart() {
+        performanceChart.data.datasets[0].data = [
+            beforeMetrics.fileCount,
+            beforeMetrics.tableSize,
+            beforeMetrics.queryTime
+        ];
+        performanceChart.data.datasets[1].data = [
+            afterMetrics.fileCount,
+            afterMetrics.tableSize,
+            afterMetrics.queryTime
+        ];
+        performanceChart.update();
+    }
+    
+    // Function to initialize the performance chart
+    function initPerformanceChart() {
+        const ctx = document.getElementById('performance-chart').getContext('2d');
+        performanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['File Count', 'Table Size (MB)', 'Query Time (s)'],
+                datasets: [
+                    {
+                        label: 'Before Optimization',
+                        data: [0, 0, 0],
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'After Optimization',
+                        data: [0, 0, 0],
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderColor: 'rgb(75, 192, 192)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    
+    // Document ready
+    $(document).ready(function() {
+        // Initialize the performance chart
+        initPerformanceChart();
+        
+        // Fetch table info on page load
+        fetchTableInfo();
+    });
+</script>
+{% endblock %}

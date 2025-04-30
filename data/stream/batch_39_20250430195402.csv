@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-39702,2024-11-16,2025-04-29,Standard Class,CG-68712,Test-Customer-0,Corporate,United States,Houston,New York,77001,East,PROD-90552,Furniture,Storage,Product 0,830.87,1,0.4,-1.11,39,2025-04-30 19:54:02,stream
+2,TEST-39782,2025-02-18,2025-04-11,Same Day,CG-99373,Test-Customer-1,Corporate,United States,New York,New York,77001,West,PROD-72246,Technology,Storage,Product 1,377.65,7,0.1,189.76,39,2025-04-30 19:54:02,stream
+3,TEST-94095,2024-12-31,2025-04-08,Same Day,CG-77088,Test-Customer-2,Corporate,United States,Los Angeles,Illinois,77001,West,PROD-57692,Furniture,Phones,Product 2,839.14,6,0.0,-14.34,39,2025-04-30 19:54:02,stream
+4,TEST-77078,2024-12-19,2025-04-22,Second Class,CG-79858,Test-Customer-3,Home Office,United States,Houston,California,85001,Central,PROD-57656,Office Supplies,Binders,Product 3,696.34,9,0.1,269.14,39,2025-04-30 19:54:02,stream
+5,TEST-24291,2024-07-04,2025-04-02,Same Day,CG-94413,Test-Customer-4,Corporate,United States,Houston,Arizona,90001,South,PROD-41281,Furniture,Tables,Product 4,162.24,8,0.4,-43.4,39,2025-04-30 19:54:02,stream
+6,TEST-29837,2025-01-28,2025-04-22,Same Day,CG-67223,Test-Customer-5,Consumer,United States,Chicago,Texas,85001,Central,PROD-93650,Office Supplies,Storage,Product 5,47.59,7,0.0,200.73,39,2025-04-30 19:54:02,stream
+7,TEST-30623,2024-12-25,2025-04-01,Second Class,CG-96762,Test-Customer-6,Consumer,United States,Chicago,Illinois,77001,West,PROD-66976,Office Supplies,Chairs,Product 6,543.99,1,0.2,312.33,39,2025-04-30 19:54:02,stream
+8,TEST-42562,2024-06-25,2025-04-19,First Class,CG-96462,Test-Customer-7,Corporate,United States,Chicago,New York,77001,West,PROD-10872,Furniture,Tables,Product 7,89.92,1,0.2,464.82,39,2025-04-30 19:54:02,stream
+9,TEST-86960,2025-01-29,2025-04-20,Second Class,CG-29605,Test-Customer-8,Home Office,United States,Chicago,Texas,90001,South,PROD-92877,Furniture,Tables,Product 8,324.68,1,0.5,126.29,39,2025-04-30 19:54:02,stream
+10,TEST-40186,2025-03-16,2025-04-28,Standard Class,CG-26395,Test-Customer-9,Home Office,United States,Chicago,Texas,60601,East,PROD-75915,Office Supplies,Storage,Product 9,758.98,4,0.4,225.72,39,2025-04-30 19:54:02,stream

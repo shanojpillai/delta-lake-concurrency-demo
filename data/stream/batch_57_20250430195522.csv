@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-78001,2024-08-28,2025-04-07,Same Day,CG-48118,Test-Customer-0,Corporate,United States,Chicago,Illinois,77001,East,PROD-59121,Office Supplies,Phones,Product 0,43.69,2,0.3,372.77,57,2025-04-30 19:55:22,stream
+2,TEST-80487,2024-05-13,2025-04-19,Same Day,CG-26763,Test-Customer-1,Corporate,United States,Houston,Texas,10001,West,PROD-83893,Office Supplies,Phones,Product 1,181.73,7,0.3,220.99,57,2025-04-30 19:55:22,stream
+3,TEST-80741,2024-08-25,2025-04-23,Standard Class,CG-55181,Test-Customer-2,Home Office,United States,Los Angeles,California,60601,East,PROD-78645,Technology,Chairs,Product 2,38.88,8,0.2,271.2,57,2025-04-30 19:55:22,stream
+4,TEST-74680,2024-06-26,2025-04-10,Same Day,CG-73267,Test-Customer-3,Consumer,United States,New York,Arizona,77001,South,PROD-33912,Technology,Chairs,Product 3,357.99,6,0.2,403.92,57,2025-04-30 19:55:22,stream
+5,TEST-55481,2025-01-17,2025-04-08,Same Day,CG-61071,Test-Customer-4,Consumer,United States,New York,California,85001,East,PROD-95629,Furniture,Chairs,Product 4,240.47,1,0.1,116.72,57,2025-04-30 19:55:22,stream
+6,TEST-61590,2024-12-21,2025-04-10,First Class,CG-22381,Test-Customer-5,Home Office,United States,Chicago,Texas,10001,East,PROD-98392,Office Supplies,Tables,Product 5,96.2,5,0.5,254.71,57,2025-04-30 19:55:22,stream
+7,TEST-27450,2025-03-08,2025-04-21,Second Class,CG-11706,Test-Customer-6,Home Office,United States,Los Angeles,Texas,85001,West,PROD-83837,Furniture,Chairs,Product 6,792.35,4,0.1,55.2,57,2025-04-30 19:55:22,stream
+8,TEST-66451,2024-05-04,2025-04-24,Standard Class,CG-92674,Test-Customer-7,Corporate,United States,Houston,California,90001,South,PROD-85218,Technology,Phones,Product 7,86.06,6,0.5,95.24,57,2025-04-30 19:55:22,stream
+9,TEST-49048,2024-08-13,2025-04-19,Standard Class,CG-78454,Test-Customer-8,Consumer,United States,Chicago,New York,85001,South,PROD-92801,Technology,Phones,Product 8,992.16,8,0.1,449.27,57,2025-04-30 19:55:22,stream
+10,TEST-89492,2024-09-14,2025-04-07,First Class,CG-17445,Test-Customer-9,Consumer,United States,Houston,California,90001,Central,PROD-88877,Office Supplies,Tables,Product 9,604.1,9,0.2,446.61,57,2025-04-30 19:55:22,stream

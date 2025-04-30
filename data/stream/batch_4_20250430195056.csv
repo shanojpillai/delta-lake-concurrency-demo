@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-36701,2024-08-10,2025-04-03,First Class,CG-65510,Test-Customer-0,Corporate,United States,Los Angeles,Texas,90001,Central,PROD-60187,Technology,Tables,Product 0,36.35,4,0.0,493.77,4,2025-04-30 19:50:56,stream
+2,TEST-53506,2024-07-17,2025-04-20,Standard Class,CG-19647,Test-Customer-1,Corporate,United States,Phoenix,Arizona,60601,Central,PROD-85014,Office Supplies,Phones,Product 1,92.97,7,0.1,-90.71,4,2025-04-30 19:50:56,stream
+3,TEST-97405,2025-04-21,2025-04-07,First Class,CG-63907,Test-Customer-2,Consumer,United States,Los Angeles,Texas,90001,West,PROD-41082,Office Supplies,Phones,Product 2,385.88,6,0.2,178.1,4,2025-04-30 19:50:56,stream
+4,TEST-28397,2024-07-16,2025-04-05,First Class,CG-66721,Test-Customer-3,Consumer,United States,Los Angeles,Illinois,60601,Central,PROD-43905,Technology,Binders,Product 3,44.93,2,0.3,-30.05,4,2025-04-30 19:50:56,stream
+5,TEST-92711,2025-02-19,2025-04-07,Second Class,CG-87674,Test-Customer-4,Consumer,United States,Los Angeles,New York,77001,Central,PROD-29648,Furniture,Tables,Product 4,135.83,8,0.4,48.41,4,2025-04-30 19:50:56,stream
+6,TEST-79334,2024-09-23,2025-04-04,Same Day,CG-60764,Test-Customer-5,Consumer,United States,Los Angeles,Illinois,60601,South,PROD-10781,Office Supplies,Binders,Product 5,916.3,6,0.0,107.45,4,2025-04-30 19:50:56,stream
+7,TEST-65542,2025-02-15,2025-04-23,First Class,CG-39401,Test-Customer-6,Corporate,United States,Houston,Texas,77001,Central,PROD-46979,Technology,Chairs,Product 6,226.0,8,0.0,186.48,4,2025-04-30 19:50:56,stream
+8,TEST-92355,2024-08-07,2025-04-02,Second Class,CG-22874,Test-Customer-7,Consumer,United States,Chicago,New York,10001,West,PROD-40365,Office Supplies,Phones,Product 7,314.94,6,0.4,89.64,4,2025-04-30 19:50:56,stream
+9,TEST-17852,2025-01-18,2025-04-05,Same Day,CG-97153,Test-Customer-8,Consumer,United States,New York,Illinois,60601,West,PROD-26644,Technology,Binders,Product 8,376.85,4,0.3,136.24,4,2025-04-30 19:50:56,stream
+10,TEST-22237,2024-11-12,2025-04-03,Same Day,CG-66401,Test-Customer-9,Consumer,United States,Phoenix,Arizona,60601,West,PROD-85492,Technology,Tables,Product 9,444.64,2,0.5,200.67,4,2025-04-30 19:50:56,stream

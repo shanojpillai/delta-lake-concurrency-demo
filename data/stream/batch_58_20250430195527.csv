@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-39750,2025-04-06,2025-04-30,Same Day,CG-98104,Test-Customer-0,Home Office,United States,New York,Texas,60601,West,PROD-32092,Technology,Chairs,Product 0,741.85,8,0.5,224.5,58,2025-04-30 19:55:27,stream
+2,TEST-56120,2025-03-10,2025-04-08,Same Day,CG-10523,Test-Customer-1,Home Office,United States,Chicago,Illinois,90001,West,PROD-91319,Furniture,Phones,Product 1,283.27,3,0.2,35.88,58,2025-04-30 19:55:27,stream
+3,TEST-89406,2024-12-07,2025-04-24,Second Class,CG-47195,Test-Customer-2,Corporate,United States,Phoenix,Texas,90001,South,PROD-25313,Office Supplies,Tables,Product 2,837.24,9,0.4,49.08,58,2025-04-30 19:55:27,stream
+4,TEST-90665,2025-04-30,2025-04-12,Same Day,CG-91977,Test-Customer-3,Home Office,United States,New York,California,10001,South,PROD-46377,Technology,Tables,Product 3,943.82,7,0.2,96.1,58,2025-04-30 19:55:27,stream
+5,TEST-53854,2024-09-20,2025-04-15,Standard Class,CG-53786,Test-Customer-4,Consumer,United States,Phoenix,Texas,10001,South,PROD-91143,Furniture,Binders,Product 4,278.75,2,0.5,36.76,58,2025-04-30 19:55:27,stream
+6,TEST-47298,2024-09-20,2025-04-27,Same Day,CG-53342,Test-Customer-5,Consumer,United States,Los Angeles,New York,90001,West,PROD-41698,Furniture,Phones,Product 5,701.71,9,0.4,408.71,58,2025-04-30 19:55:27,stream
+7,TEST-26839,2025-02-25,2025-04-16,Same Day,CG-55376,Test-Customer-6,Corporate,United States,Phoenix,Illinois,77001,Central,PROD-73416,Technology,Chairs,Product 6,488.82,1,0.3,305.76,58,2025-04-30 19:55:27,stream
+8,TEST-97854,2024-09-15,2025-04-08,Same Day,CG-63995,Test-Customer-7,Home Office,United States,Chicago,California,10001,West,PROD-63434,Technology,Phones,Product 7,14.76,3,0.2,482.4,58,2025-04-30 19:55:27,stream
+9,TEST-37023,2024-09-18,2025-04-01,Same Day,CG-67372,Test-Customer-8,Corporate,United States,Chicago,New York,90001,South,PROD-78059,Office Supplies,Binders,Product 8,95.23,8,0.5,414.73,58,2025-04-30 19:55:27,stream
+10,TEST-89604,2024-11-30,2025-04-17,Same Day,CG-60923,Test-Customer-9,Corporate,United States,Houston,Texas,85001,South,PROD-19409,Furniture,Storage,Product 9,271.6,2,0.0,268.39,58,2025-04-30 19:55:27,stream

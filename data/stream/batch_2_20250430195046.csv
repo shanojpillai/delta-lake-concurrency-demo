@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-91991,2024-05-20,2025-04-04,Same Day,CG-70038,Test-Customer-0,Home Office,United States,Chicago,Illinois,60601,South,PROD-94231,Office Supplies,Phones,Product 0,688.63,2,0.0,13.76,2,2025-04-30 19:50:46,stream
+2,TEST-36945,2024-07-18,2025-04-16,Second Class,CG-54201,Test-Customer-1,Corporate,United States,Phoenix,California,90001,South,PROD-35641,Office Supplies,Phones,Product 1,422.99,3,0.2,266.26,2,2025-04-30 19:50:46,stream
+3,TEST-65027,2024-10-26,2025-04-09,Same Day,CG-79478,Test-Customer-2,Corporate,United States,Phoenix,New York,77001,Central,PROD-90968,Furniture,Tables,Product 2,206.28,6,0.1,-81.99,2,2025-04-30 19:50:46,stream
+4,TEST-87555,2025-02-12,2025-04-18,Same Day,CG-52131,Test-Customer-3,Home Office,United States,Houston,California,85001,South,PROD-48502,Furniture,Storage,Product 3,682.25,3,0.4,482.55,2,2025-04-30 19:50:46,stream
+5,TEST-43266,2024-12-09,2025-04-02,Second Class,CG-69425,Test-Customer-4,Consumer,United States,Chicago,Texas,77001,Central,PROD-72576,Office Supplies,Binders,Product 4,202.78,8,0.3,-41.23,2,2025-04-30 19:50:46,stream
+6,TEST-41901,2024-05-06,2025-04-02,Standard Class,CG-17505,Test-Customer-5,Home Office,United States,New York,New York,77001,West,PROD-14148,Technology,Binders,Product 5,519.74,8,0.5,373.54,2,2025-04-30 19:50:46,stream
+7,TEST-45228,2025-02-10,2025-04-14,Same Day,CG-50328,Test-Customer-6,Consumer,United States,New York,Arizona,60601,West,PROD-99929,Technology,Phones,Product 6,865.64,6,0.3,-77.84,2,2025-04-30 19:50:46,stream
+8,TEST-35595,2025-01-11,2025-04-20,First Class,CG-63956,Test-Customer-7,Consumer,United States,Los Angeles,California,60601,Central,PROD-30630,Furniture,Tables,Product 7,292.46,6,0.1,341.47,2,2025-04-30 19:50:46,stream
+9,TEST-65093,2025-02-23,2025-04-29,Same Day,CG-52356,Test-Customer-8,Consumer,United States,Phoenix,New York,10001,East,PROD-53442,Technology,Tables,Product 8,16.5,9,0.3,199.35,2,2025-04-30 19:50:46,stream
+10,TEST-95281,2024-08-15,2025-04-04,First Class,CG-34362,Test-Customer-9,Home Office,United States,Phoenix,Illinois,60601,South,PROD-19294,Furniture,Chairs,Product 9,985.76,1,0.0,411.89,2,2025-04-30 19:50:46,stream

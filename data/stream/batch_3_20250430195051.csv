@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-49305,2025-03-30,2025-04-04,Same Day,CG-48458,Test-Customer-0,Corporate,United States,Houston,California,60601,East,PROD-27254,Office Supplies,Phones,Product 0,42.62,5,0.0,226.46,3,2025-04-30 19:50:51,stream
+2,TEST-34139,2024-07-25,2025-04-12,Standard Class,CG-42784,Test-Customer-1,Corporate,United States,Houston,New York,60601,East,PROD-31202,Office Supplies,Chairs,Product 1,761.92,2,0.5,364.19,3,2025-04-30 19:50:51,stream
+3,TEST-16919,2024-10-05,2025-04-28,Same Day,CG-20924,Test-Customer-2,Corporate,United States,Houston,Texas,85001,West,PROD-31568,Technology,Tables,Product 2,27.28,2,0.0,140.8,3,2025-04-30 19:50:51,stream
+4,TEST-72630,2024-07-13,2025-04-07,Second Class,CG-46377,Test-Customer-3,Corporate,United States,New York,Texas,85001,South,PROD-41416,Office Supplies,Chairs,Product 3,817.52,4,0.0,387.79,3,2025-04-30 19:50:51,stream
+5,TEST-10931,2024-11-13,2025-04-19,Same Day,CG-83333,Test-Customer-4,Home Office,United States,Los Angeles,Arizona,90001,South,PROD-66009,Office Supplies,Phones,Product 4,619.12,8,0.4,290.5,3,2025-04-30 19:50:51,stream
+6,TEST-20209,2024-05-07,2025-04-04,Same Day,CG-17708,Test-Customer-5,Consumer,United States,Phoenix,Texas,77001,East,PROD-20398,Furniture,Tables,Product 5,95.64,1,0.5,286.47,3,2025-04-30 19:50:51,stream
+7,TEST-81525,2025-04-23,2025-04-17,Second Class,CG-29455,Test-Customer-6,Home Office,United States,Phoenix,Arizona,60601,Central,PROD-89192,Technology,Chairs,Product 6,208.61,8,0.2,59.6,3,2025-04-30 19:50:51,stream
+8,TEST-38214,2024-11-05,2025-04-08,First Class,CG-57150,Test-Customer-7,Corporate,United States,Houston,New York,77001,Central,PROD-71921,Furniture,Chairs,Product 7,434.14,7,0.5,225.22,3,2025-04-30 19:50:51,stream
+9,TEST-13344,2025-02-22,2025-04-30,Same Day,CG-61710,Test-Customer-8,Corporate,United States,Los Angeles,Illinois,10001,West,PROD-44400,Office Supplies,Tables,Product 8,971.55,6,0.3,2.41,3,2025-04-30 19:50:51,stream
+10,TEST-33498,2024-12-21,2025-04-29,Standard Class,CG-94756,Test-Customer-9,Home Office,United States,Phoenix,Texas,60601,East,PROD-28259,Office Supplies,Phones,Product 9,512.55,3,0.1,-16.24,3,2025-04-30 19:50:51,stream

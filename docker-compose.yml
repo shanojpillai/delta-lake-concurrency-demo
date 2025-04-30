@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  spark:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: delta-spark
+    ports:
+      - "4040:4040"  # Spark UI
+      - "8888:8888"  # Jupyter Notebook
+      - "5000:5000"  # Flask Web UI
+    volumes:
+      - ./data:/opt/spark/data
+      - ./notebooks:/opt/spark/notebooks
+      - ./scripts:/opt/spark/scripts
+      - ./app:/opt/spark/app
+    environment:
+      - SPARK_MASTER=local[*]
+      - SPARK_DRIVER_MEMORY=4g
+      - SPARK_EXECUTOR_MEMORY=4g
+      - PYSPARK_PYTHON=/usr/local/bin/python
+      - PYSPARK_DRIVER_PYTHON=/usr/local/bin/python
+      - SPARK_CONF_DIR=/opt/spark/conf
+      - SPARK_LOCAL_DIRS=/opt/spark/data
+      - SPARK_LOG_DIR=/opt/spark/logs
+      # Delta Lake specific configurations
+      - SPARK_DELTA_PROPERTIES=spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension,spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog,spark.databricks.delta.schema.autoMerge.enabled=true,spark.databricks.delta.optimizeWrite.enabled=true,spark.databricks.delta.autoCompact.enabled=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: always
+    networks:
+      - delta-network
+
+networks:
+  delta-network:
+    driver: bridge

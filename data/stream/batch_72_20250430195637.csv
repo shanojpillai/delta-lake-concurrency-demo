@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-61645,2024-10-28,2025-04-12,Second Class,CG-84726,Test-Customer-0,Corporate,United States,Los Angeles,Illinois,77001,East,PROD-69255,Furniture,Tables,Product 0,600.95,4,0.3,460.9,72,2025-04-30 19:56:37,stream
+2,TEST-54265,2024-09-28,2025-04-01,First Class,CG-88658,Test-Customer-1,Home Office,United States,Los Angeles,New York,90001,South,PROD-75146,Office Supplies,Tables,Product 1,740.7,9,0.2,497.1,72,2025-04-30 19:56:37,stream
+3,TEST-41414,2024-11-14,2025-04-08,Second Class,CG-39341,Test-Customer-2,Consumer,United States,Chicago,Texas,77001,South,PROD-79809,Furniture,Storage,Product 2,599.6,7,0.5,307.54,72,2025-04-30 19:56:37,stream
+4,TEST-94791,2025-03-18,2025-04-26,Second Class,CG-51539,Test-Customer-3,Corporate,United States,Phoenix,California,60601,East,PROD-13497,Furniture,Tables,Product 3,240.48,4,0.2,50.08,72,2025-04-30 19:56:37,stream
+5,TEST-55012,2024-12-01,2025-04-18,Second Class,CG-68992,Test-Customer-4,Corporate,United States,New York,California,85001,Central,PROD-27282,Furniture,Tables,Product 4,662.28,6,0.0,60.95,72,2025-04-30 19:56:37,stream
+6,TEST-78020,2025-03-08,2025-04-17,Same Day,CG-12479,Test-Customer-5,Corporate,United States,Phoenix,Texas,90001,East,PROD-15951,Office Supplies,Chairs,Product 5,73.15,3,0.3,240.35,72,2025-04-30 19:56:37,stream
+7,TEST-86490,2025-04-07,2025-04-13,First Class,CG-95699,Test-Customer-6,Home Office,United States,Los Angeles,New York,60601,Central,PROD-41619,Technology,Binders,Product 6,97.42,2,0.3,128.28,72,2025-04-30 19:56:37,stream
+8,TEST-24084,2025-01-23,2025-04-12,Same Day,CG-59836,Test-Customer-7,Consumer,United States,Los Angeles,Texas,90001,West,PROD-88787,Furniture,Chairs,Product 7,341.42,4,0.1,358.13,72,2025-04-30 19:56:37,stream
+9,TEST-49442,2024-09-05,2025-04-24,Second Class,CG-65368,Test-Customer-8,Corporate,United States,Houston,New York,77001,Central,PROD-14044,Furniture,Phones,Product 8,416.51,4,0.4,150.12,72,2025-04-30 19:56:37,stream
+10,TEST-87752,2024-08-16,2025-04-06,Second Class,CG-46362,Test-Customer-9,Consumer,United States,Houston,Illinois,10001,West,PROD-57105,Furniture,Tables,Product 9,308.16,8,0.2,30.61,72,2025-04-30 19:56:37,stream

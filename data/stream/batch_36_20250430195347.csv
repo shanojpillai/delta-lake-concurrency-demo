@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-27870,2024-11-06,2025-04-06,Same Day,CG-60665,Test-Customer-0,Home Office,United States,Phoenix,New York,77001,Central,PROD-30431,Office Supplies,Chairs,Product 0,987.71,6,0.4,-2.15,36,2025-04-30 19:53:47,stream
+2,TEST-44361,2024-08-04,2025-04-11,Standard Class,CG-55457,Test-Customer-1,Corporate,United States,Chicago,Texas,77001,West,PROD-49837,Office Supplies,Tables,Product 1,42.42,3,0.0,-18.2,36,2025-04-30 19:53:47,stream
+3,TEST-65515,2024-11-24,2025-04-24,Second Class,CG-60443,Test-Customer-2,Corporate,United States,Chicago,Texas,60601,East,PROD-20485,Office Supplies,Chairs,Product 2,122.7,5,0.0,411.5,36,2025-04-30 19:53:47,stream
+4,TEST-70021,2024-09-12,2025-04-05,Same Day,CG-45253,Test-Customer-3,Corporate,United States,Chicago,Texas,90001,South,PROD-80576,Technology,Phones,Product 3,805.1,7,0.3,265.31,36,2025-04-30 19:53:47,stream
+5,TEST-36991,2024-05-02,2025-04-29,First Class,CG-90087,Test-Customer-4,Consumer,United States,New York,New York,85001,East,PROD-13526,Technology,Chairs,Product 4,809.8,9,0.0,417.31,36,2025-04-30 19:53:47,stream
+6,TEST-85570,2024-05-14,2025-04-11,Standard Class,CG-55531,Test-Customer-5,Consumer,United States,New York,California,60601,West,PROD-86198,Technology,Phones,Product 5,470.46,3,0.5,298.28,36,2025-04-30 19:53:47,stream
+7,TEST-10302,2024-06-06,2025-04-10,Second Class,CG-54853,Test-Customer-6,Corporate,United States,Los Angeles,Arizona,90001,Central,PROD-96795,Office Supplies,Storage,Product 6,206.27,4,0.1,224.24,36,2025-04-30 19:53:47,stream
+8,TEST-53497,2024-09-21,2025-04-23,Same Day,CG-71414,Test-Customer-7,Consumer,United States,Phoenix,Texas,10001,South,PROD-85825,Furniture,Chairs,Product 7,354.84,8,0.0,136.01,36,2025-04-30 19:53:47,stream
+9,TEST-11367,2024-12-18,2025-04-11,Same Day,CG-73262,Test-Customer-8,Home Office,United States,Houston,Texas,10001,Central,PROD-35399,Furniture,Storage,Product 8,438.23,5,0.2,237.99,36,2025-04-30 19:53:47,stream
+10,TEST-29207,2024-06-07,2025-04-02,Standard Class,CG-61365,Test-Customer-9,Home Office,United States,Houston,Texas,77001,East,PROD-74848,Office Supplies,Chairs,Product 9,141.53,7,0.0,79.48,36,2025-04-30 19:53:47,stream

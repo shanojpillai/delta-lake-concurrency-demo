@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-50730,2024-10-25,2025-04-21,Standard Class,CG-79148,Test-Customer-0,Corporate,United States,Phoenix,Arizona,90001,West,PROD-56841,Technology,Chairs,Product 0,38.2,4,0.2,5.73,60,2025-04-30 19:55:47,stream
+2,TEST-33445,2025-04-26,2025-04-15,Standard Class,CG-50823,Test-Customer-1,Consumer,United States,Chicago,Arizona,77001,West,PROD-18064,Furniture,Tables,Product 1,219.64,9,0.1,-49.79,60,2025-04-30 19:55:47,stream
+3,TEST-86339,2024-09-24,2025-04-24,Standard Class,CG-22456,Test-Customer-2,Home Office,United States,Phoenix,Texas,10001,West,PROD-47932,Technology,Chairs,Product 2,498.67,3,0.4,491.18,60,2025-04-30 19:55:47,stream
+4,TEST-79809,2024-08-04,2025-04-09,Second Class,CG-43267,Test-Customer-3,Home Office,United States,Houston,California,60601,West,PROD-26590,Furniture,Binders,Product 3,167.03,8,0.0,26.25,60,2025-04-30 19:55:47,stream
+5,TEST-28042,2024-10-06,2025-04-09,First Class,CG-77420,Test-Customer-4,Corporate,United States,Phoenix,Arizona,77001,West,PROD-99400,Office Supplies,Phones,Product 4,647.58,3,0.4,417.28,60,2025-04-30 19:55:47,stream
+6,TEST-83835,2024-09-04,2025-04-07,Second Class,CG-97626,Test-Customer-5,Home Office,United States,Phoenix,California,77001,East,PROD-22849,Furniture,Chairs,Product 5,595.12,9,0.3,331.66,60,2025-04-30 19:55:47,stream
+7,TEST-82509,2024-10-11,2025-04-10,First Class,CG-92665,Test-Customer-6,Consumer,United States,New York,Texas,90001,East,PROD-14052,Office Supplies,Phones,Product 6,730.6,2,0.4,345.39,60,2025-04-30 19:55:47,stream
+8,TEST-41911,2025-04-05,2025-04-23,Standard Class,CG-59194,Test-Customer-7,Consumer,United States,New York,New York,85001,South,PROD-59742,Technology,Chairs,Product 7,810.7,1,0.4,63.85,60,2025-04-30 19:55:47,stream
+9,TEST-67207,2024-09-07,2025-04-05,First Class,CG-93799,Test-Customer-8,Consumer,United States,Phoenix,Arizona,90001,South,PROD-88140,Office Supplies,Storage,Product 8,507.19,6,0.3,310.05,60,2025-04-30 19:55:47,stream
+10,TEST-49420,2025-04-07,2025-04-11,Same Day,CG-57084,Test-Customer-9,Home Office,United States,New York,Arizona,60601,Central,PROD-93703,Furniture,Phones,Product 9,632.47,5,0.1,474.51,60,2025-04-30 19:55:47,stream

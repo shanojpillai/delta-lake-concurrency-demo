@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-86376,2024-08-28,2025-04-11,First Class,CG-79421,Test-Customer-0,Consumer,United States,Phoenix,Texas,60601,West,PROD-67016,Technology,Tables,Product 0,105.05,3,0.1,117.67,4,2025-04-30 19:51:06,stream
+2,TEST-47521,2024-09-07,2025-04-28,Second Class,CG-80977,Test-Customer-1,Home Office,United States,Houston,Arizona,10001,East,PROD-90110,Furniture,Storage,Product 1,332.92,7,0.5,-84.34,4,2025-04-30 19:51:06,stream
+3,TEST-53241,2024-10-24,2025-04-03,Standard Class,CG-10750,Test-Customer-2,Home Office,United States,Los Angeles,New York,10001,West,PROD-68742,Furniture,Binders,Product 2,818.0,6,0.0,-3.54,4,2025-04-30 19:51:06,stream
+4,TEST-47162,2024-10-02,2025-04-16,First Class,CG-93491,Test-Customer-3,Consumer,United States,Chicago,Arizona,77001,West,PROD-47232,Technology,Phones,Product 3,839.71,3,0.3,310.81,4,2025-04-30 19:51:06,stream
+5,TEST-40992,2024-05-17,2025-04-18,Second Class,CG-58555,Test-Customer-4,Consumer,United States,Los Angeles,Texas,77001,West,PROD-84450,Office Supplies,Storage,Product 4,765.56,9,0.4,112.66,4,2025-04-30 19:51:06,stream
+6,TEST-21485,2024-11-23,2025-04-05,Standard Class,CG-62087,Test-Customer-5,Consumer,United States,Phoenix,California,10001,East,PROD-73270,Furniture,Tables,Product 5,99.44,2,0.4,1.33,4,2025-04-30 19:51:06,stream
+7,TEST-82781,2024-10-11,2025-04-12,Second Class,CG-43771,Test-Customer-6,Consumer,United States,Chicago,California,10001,South,PROD-70789,Technology,Binders,Product 6,801.72,1,0.1,302.45,4,2025-04-30 19:51:06,stream
+8,TEST-76273,2025-01-30,2025-04-03,Second Class,CG-28543,Test-Customer-7,Corporate,United States,Phoenix,Texas,90001,East,PROD-14900,Furniture,Chairs,Product 7,965.09,6,0.0,189.06,4,2025-04-30 19:51:06,stream
+9,TEST-73045,2024-05-22,2025-04-09,Same Day,CG-25044,Test-Customer-8,Corporate,United States,Houston,Texas,10001,East,PROD-75690,Furniture,Phones,Product 8,672.21,3,0.3,487.32,4,2025-04-30 19:51:06,stream
+10,TEST-75147,2024-06-09,2025-04-04,First Class,CG-88793,Test-Customer-9,Corporate,United States,Chicago,California,77001,South,PROD-99814,Technology,Storage,Product 9,164.51,3,0.4,-43.44,4,2025-04-30 19:51:06,stream

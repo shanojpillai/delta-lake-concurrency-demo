@@ -1,0 +1,467 @@
+{% extends "base.html" %}
+
+{% block title %}Schema Evolution - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-table me-2"></i>6. Schema Evolution
+        </h1>
+        <div id="alerts-container"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-info-circle me-2"></i>About Schema Evolution
+            </div>
+            <div class="card-body">
+                <p>This page demonstrates Delta Lake's schema evolution capabilities. The schema evolution process:</p>
+                <ol>
+                    <li>Adds new columns to the Delta table without disruption</li>
+                    <li>Modifies data types of existing columns safely</li>
+                    <li>Adds complex nested structures to demonstrate flexibility</li>
+                    <li>Shows how Delta Lake handles schema changes during streaming</li>
+                    <li>Implements schema enforcement to prevent data corruption</li>
+                </ol>
+                <p>Use the controls to add new columns and modify data types to see how Delta Lake handles schema evolution.</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-database me-2"></i>Delta Table Information
+                <button class="btn btn-sm btn-outline-primary float-end" onclick="fetchTableInfo()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Current Version:</label>
+                            <div id="table-version">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Record Count:</label>
+                            <div id="record-count">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">File Count:</label>
+                            <div id="file-count">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Table Size:</label>
+                            <div id="table-size">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-list me-2"></i>Current Schema
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="schema-table">
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Data Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="refreshSchema()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh Schema
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-plus me-2"></i>Add New Column
+            </div>
+            <div class="card-body">
+                <form id="add-column-form">
+                    <div class="mb-3">
+                        <label for="column-name" class="form-label">Column Name</label>
+                        <input type="text" class="form-control" id="column-name" value="Customer_Feedback" placeholder="Enter column name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="column-value" class="form-label">Default Value</label>
+                        <input type="text" class="form-control" id="column-value" value="Satisfied" placeholder="Enter default value">
+                    </div>
+                    
+                    <button type="button" id="add-column-btn" class="btn btn-primary" onclick="addColumn()">
+                        <i class="fas fa-plus me-2"></i>Add Column
+                    </button>
+                </form>
+                
+                <div class="loading mt-3">
+                    <div class="spinner-border loading-spinner text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Adding column...</p>
+                </div>
+                
+                <div id="column-output" class="mt-3" style="display: none;">
+                    <h5>Column Addition Result:</h5>
+                    <div class="code-block" id="output-text"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-exchange-alt me-2"></i>Modify Data Types
+            </div>
+            <div class="card-body">
+                <p>This demonstrates how Delta Lake handles data type changes. Only widening conversions are supported (e.g., int → long, float → double).</p>
+                
+                <div class="mb-3">
+                    <button type="button" id="widen-types-btn" class="btn btn-warning" onclick="widenDataTypes()">
+                        <i class="fas fa-exchange-alt me-2"></i>Widen Numeric Types
+                    </button>
+                    <div class="form-text">Widens integer columns to long and float columns to double.</div>
+                </div>
+                
+                <div id="type-output" class="mt-3" style="display: none;">
+                    <h5>Data Type Modification Result:</h5>
+                    <div class="code-block" id="type-output-text"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-object-group me-2"></i>Add Nested Structure
+            </div>
+            <div class="card-body">
+                <p>This demonstrates how Delta Lake handles complex nested structures.</p>
+                
+                <div class="mb-3">
+                    <button type="button" id="add-nested-btn" class="btn btn-info" onclick="addNestedStructure()">
+                        <i class="fas fa-object-group me-2"></i>Add Customer Details Structure
+                    </button>
+                    <div class="form-text">Adds a nested structure with customer information.</div>
+                </div>
+                
+                <div id="nested-output" class="mt-3" style="display: none;">
+                    <h5>Nested Structure Addition Result:</h5>
+                    <div class="code-block" id="nested-output-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-history me-2"></i>Table History
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Timestamp</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-code me-2"></i>What's Happening Behind the Scenes
+            </div>
+            <div class="card-body">
+                <p>The schema evolution process involves several key components:</p>
+                
+                <h5>1. Add New Column</h5>
+                <div class="code-block">
+# Create a DataFrame with new columns
+updated_df = sample_df \
+    .withColumn("Customer_Feedback", lit("Satisfied")) \
+    .withColumn("Last_Updated", current_timestamp()) \
+    .withColumn("Schema_Version", lit("v1"))
+
+# Write back to the Delta table
+updated_df.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .option("overwriteSchema", "true") \
+    .option("replaceWhere", "Row ID <= 100") \
+    .save(delta_table_path)
+</div>
+                
+                <h5>2. Modify Data Types</h5>
+                <div class="code-block">
+# Widen data types (safe conversion)
+widened_df = sample_df \
+    .withColumn("Quantity", col("Quantity").cast("long")) \
+    .withColumn("Sales", col("Sales").cast("decimal(18,2)")) \
+    .withColumn("Profit", col("Profit").cast("decimal(18,2)")) \
+    .withColumn("Schema_Version", lit("v2"))
+
+# Write back to the Delta table
+widened_df.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .option("overwriteSchema", "true") \
+    .option("replaceWhere", "Row ID <= 100") \
+    .save(delta_table_path)
+</div>
+                
+                <h5>3. Add Nested Structure</h5>
+                <div class="code-block">
+# Add complex nested structure
+nested_df = sample_df \
+    .withColumn("Customer_Details", struct(
+        col("Customer ID").alias("ID"),
+        col("Customer Name").alias("Name"),
+        col("Segment").alias("Segment"),
+        struct(
+            col("City").alias("City"),
+            col("State").alias("State"),
+            col("Country").alias("Country"),
+            col("Postal Code").alias("Postal_Code")
+        ).alias("Address")
+    )) \
+    .withColumn("Schema_Version", lit("v3"))
+
+# Write back to the Delta table
+nested_df.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .option("overwriteSchema", "true") \
+    .option("replaceWhere", "Row ID <= 100") \
+    .save(delta_table_path)
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-arrow-right me-2"></i>Next Steps
+            </div>
+            <div class="card-body">
+                <p>Once you've explored the schema evolution capabilities, proceed to the next step to learn about Delta Lake's time travel features.</p>
+                <a href="/timetravel" class="btn btn-primary">
+                    <i class="fas fa-clock me-2"></i>Go to Time Travel
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Function to add column
+    function addColumn() {
+        // Get parameters
+        const columnName = $('#column-name').val();
+        const columnValue = $('#column-value').val();
+        
+        if (!columnName) {
+            showAlert('Column name is required', 'warning');
+            return;
+        }
+        
+        // Show loading spinner
+        showLoading();
+        $('#add-column-btn').prop('disabled', true);
+        $('#column-output').hide();
+        
+        // Call the API to add column
+        $.ajax({
+            url: '/api/add_column',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                column_name: columnName,
+                column_value: columnValue
+            }),
+            success: function(response) {
+                hideLoading();
+                $('#add-column-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Column added successfully!', 'success');
+                    $('#column-output').show();
+                    $('#output-text').text(`Added column ${columnName} with value ${columnValue}`);
+                    
+                    // Refresh schema and table info
+                    refreshSchema();
+                    fetchTableInfo();
+                } else {
+                    showAlert('Failed to add column: ' + response.error, 'danger');
+                    $('#column-output').show();
+                    $('#output-text').text('Failed to add column: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#add-column-btn').prop('disabled', false);
+                showAlert('Error adding column: ' + error, 'danger');
+                $('#column-output').show();
+                $('#output-text').text('Error adding column: ' + error);
+            }
+        });
+    }
+    
+    // Function to widen data types
+    function widenDataTypes() {
+        // Show loading spinner
+        showLoading();
+        $('#widen-types-btn').prop('disabled', true);
+        $('#type-output').hide();
+        
+        // Call the API to widen data types
+        $.ajax({
+            url: '/api/widen_data_types',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({}),
+            success: function(response) {
+                hideLoading();
+                $('#widen-types-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Data types widened successfully!', 'success');
+                    $('#type-output').show();
+                    $('#type-output-text').text(response.message);
+                    
+                    // Refresh schema and table info
+                    refreshSchema();
+                    fetchTableInfo();
+                } else {
+                    showAlert('Failed to widen data types: ' + response.error, 'danger');
+                    $('#type-output').show();
+                    $('#type-output-text').text('Failed to widen data types: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#widen-types-btn').prop('disabled', false);
+                showAlert('Error widening data types: ' + error, 'danger');
+                $('#type-output').show();
+                $('#type-output-text').text('Error widening data types: ' + error);
+            }
+        });
+    }
+    
+    // Function to add nested structure
+    function addNestedStructure() {
+        // Show loading spinner
+        showLoading();
+        $('#add-nested-btn').prop('disabled', true);
+        $('#nested-output').hide();
+        
+        // Call the API to add nested structure
+        $.ajax({
+            url: '/api/add_nested_structure',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({}),
+            success: function(response) {
+                hideLoading();
+                $('#add-nested-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Nested structure added successfully!', 'success');
+                    $('#nested-output').show();
+                    $('#nested-output-text').text(response.message);
+                    
+                    // Refresh schema and table info
+                    refreshSchema();
+                    fetchTableInfo();
+                } else {
+                    showAlert('Failed to add nested structure: ' + response.error, 'danger');
+                    $('#nested-output').show();
+                    $('#nested-output-text').text('Failed to add nested structure: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#add-nested-btn').prop('disabled', false);
+                showAlert('Error adding nested structure: ' + error, 'danger');
+                $('#nested-output').show();
+                $('#nested-output-text').text('Error adding nested structure: ' + error);
+            }
+        });
+    }
+    
+    // Function to refresh schema
+    function refreshSchema() {
+        // Call the API to get schema
+        $.ajax({
+            url: '/api/get_schema',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // Update schema table
+                    const schemaHtml = response.schema.map(field => `
+                        <tr>
+                            <td>${field.name}</td>
+                            <td>${field.type}</td>
+                        </tr>
+                    `).join('');
+                    
+                    $('#schema-table tbody').html(schemaHtml);
+                } else {
+                    showAlert('Failed to fetch schema: ' + response.error, 'danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                showAlert('Error fetching schema: ' + error, 'danger');
+            }
+        });
+    }
+    
+    // Document ready
+    $(document).ready(function() {
+        // Fetch table info on page load
+        fetchTableInfo();
+        
+        // Fetch schema on page load
+        refreshSchema();
+    });
+</script>
+{% endblock %}

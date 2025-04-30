@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Setup - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Setup</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        <li class="breadcrumb-item active">Setup</li>
+    </ol>
+    
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Delta Lake Setup</h5>
+                </div>
+                <div class="card-body">
+                    <p>This page sets up the initial Delta Lake table using the Global Superstore dataset. The setup process includes:</p>
+                    <ul>
+                        <li>Downloading the Global Superstore dataset</li>
+                        <li>Creating a Delta Lake table with appropriate schema and partitioning</li>
+                        <li>Optimizing the table with Z-ordering</li>
+                        <li>Setting up table properties for retention and other Delta features</li>
+                    </ul>
+                    <p>Click the button below to run the setup process:</p>
+                    <button id="run-setup-btn" class="btn btn-primary">
+                        <i class="fas fa-play mr-2"></i>Run Setup
+                    </button>
+                    <div id="setup-status" class="mt-3" style="display: none;">
+                        <div class="alert alert-info">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            <span id="setup-message">Running setup...</span>
+                        </div>
+                    </div>
+                    <div id="setup-result" class="mt-3" style="display: none;">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span id="result-message">Setup completed successfully!</span>
+                        </div>
+                    </div>
+                    <div id="setup-error" class="mt-3" style="display: none;">
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            <span id="error-message">Error running setup.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% if notebook_path %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Jupyter Notebook</h5>
+                </div>
+                <div class="card-body">
+                    <p>You can also explore this functionality in the Jupyter notebook:</p>
+                    <a href="http://localhost:8888/notebooks/{{ notebook_path }}" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt mr-2"></i>Open Notebook
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Table Information</h5>
+                </div>
+                <div class="card-body">
+                    <div id="table-info-loading" class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading table information...</p>
+                    </div>
+                    <div id="table-info-content" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Table Metrics</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Current Version</th>
+                                                    <td id="current-version">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Record Count</th>
+                                                    <td id="record-count">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Number of Files</th>
+                                                    <td id="num-files">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Size</th>
+                                                    <td id="size-mb">-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Table History</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="no-history" style="display: none;">
+                                            <p class="text-muted">No history available. Please run the setup first.</p>
+                                        </div>
+                                        <div id="history-table-container" style="display: none;">
+                                            <div class="table-responsive">
+                                                <table id="history-table" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Version</th>
+                                                            <th>Timestamp</th>
+                                                            <th>Operation</th>
+                                                            <th>Operation Metrics</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="history-table-body">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Load table information
+        loadTableInfo();
+        
+        // Set up button click handler
+        $('#run-setup-btn').click(function() {
+            runSetup();
+        });
+        
+        // Function to load table information
+        function loadTableInfo() {
+            $('#table-info-loading').show();
+            $('#table-info-content').hide();
+            
+            $.ajax({
+                url: '/api/table_info',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        updateTableInfo(response.metrics, response.history);
+                    } else {
+                        console.error('Error loading table info:', response.error);
+                    }
+                    $('#table-info-loading').hide();
+                    $('#table-info-content').show();
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX error:', error);
+                    $('#table-info-loading').hide();
+                    $('#table-info-content').show();
+                }
+            });
+        }
+        
+        // Function to update table information
+        function updateTableInfo(metrics, history) {
+            // Update metrics
+            $('#current-version').text(metrics.current_version >= 0 ? metrics.current_version : 'N/A');
+            $('#record-count').text(metrics.record_count.toLocaleString());
+            $('#num-files').text(metrics.num_files.toLocaleString());
+            $('#size-mb').text((metrics.size_in_mb).toFixed(2) + ' MB');
+            
+            // Update history
+            if (history && history.length > 0) {
+                $('#no-history').hide();
+                $('#history-table-container').show();
+                
+                var historyHtml = '';
+                history.forEach(function(item) {
+                    historyHtml += '<tr>';
+                    historyHtml += '<td>' + item.version + '</td>';
+                    historyHtml += '<td>' + new Date(item.timestamp).toLocaleString() + '</td>';
+                    historyHtml += '<td>' + item.operation + '</td>';
+                    historyHtml += '<td>';
+                    if (item.operationMetrics) {
+                        var metrics = [];
+                        for (var key in item.operationMetrics) {
+                            metrics.push(key + ': ' + item.operationMetrics[key]);
+                        }
+                        historyHtml += metrics.join('<br>');
+                    } else {
+                        historyHtml += 'N/A';
+                    }
+                    historyHtml += '</td>';
+                    historyHtml += '</tr>';
+                });
+                
+                $('#history-table-body').html(historyHtml);
+            } else {
+                $('#no-history').show();
+                $('#history-table-container').hide();
+            }
+        }
+        
+        // Function to run setup
+        function runSetup() {
+            $('#run-setup-btn').prop('disabled', true);
+            $('#setup-status').show();
+            $('#setup-result').hide();
+            $('#setup-error').hide();
+            
+            $.ajax({
+                url: '/api/run_setup',
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    $('#run-setup-btn').prop('disabled', false);
+                    $('#setup-status').hide();
+                    
+                    if (response.success) {
+                        $('#result-message').text(response.message);
+                        $('#setup-result').show();
+                        // Reload table info after successful setup
+                        loadTableInfo();
+                    } else {
+                        $('#error-message').text(response.error);
+                        $('#setup-error').show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#run-setup-btn').prop('disabled', false);
+                    $('#setup-status').hide();
+                    $('#error-message').text('AJAX error: ' + error);
+                    $('#setup-error').show();
+                    console.error('AJAX error:', error);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

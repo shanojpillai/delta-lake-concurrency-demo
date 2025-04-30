@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-43990,2024-09-15,2025-04-02,Same Day,CG-43748,Test-Customer-0,Consumer,United States,Chicago,Arizona,77001,South,PROD-62334,Technology,Chairs,Product 0,764.09,6,0.1,370.55,10,2025-04-30 19:51:26,stream
+2,TEST-40983,2025-04-02,2025-04-29,Standard Class,CG-61703,Test-Customer-1,Corporate,United States,Chicago,New York,85001,East,PROD-96786,Office Supplies,Storage,Product 1,256.01,5,0.3,416.88,10,2025-04-30 19:51:26,stream
+3,TEST-37315,2024-06-18,2025-04-14,Standard Class,CG-22527,Test-Customer-2,Corporate,United States,Los Angeles,Illinois,10001,East,PROD-30556,Furniture,Chairs,Product 2,125.6,6,0.4,-8.02,10,2025-04-30 19:51:26,stream
+4,TEST-67221,2024-09-12,2025-04-21,First Class,CG-41596,Test-Customer-3,Corporate,United States,Chicago,Illinois,85001,East,PROD-51333,Technology,Phones,Product 3,544.42,2,0.3,222.9,10,2025-04-30 19:51:26,stream
+5,TEST-26885,2024-06-06,2025-04-11,Second Class,CG-54605,Test-Customer-4,Corporate,United States,Chicago,Arizona,77001,Central,PROD-71421,Technology,Chairs,Product 4,729.9,4,0.1,494.83,10,2025-04-30 19:51:26,stream
+6,TEST-45108,2024-09-11,2025-04-01,Standard Class,CG-20918,Test-Customer-5,Corporate,United States,Los Angeles,New York,90001,West,PROD-77739,Technology,Storage,Product 5,972.01,5,0.5,281.54,10,2025-04-30 19:51:26,stream
+7,TEST-43816,2024-12-21,2025-04-25,Same Day,CG-70590,Test-Customer-6,Home Office,United States,Phoenix,Arizona,77001,Central,PROD-46141,Technology,Binders,Product 6,764.24,6,0.4,432.12,10,2025-04-30 19:51:26,stream
+8,TEST-90004,2024-09-06,2025-04-21,Standard Class,CG-90697,Test-Customer-7,Home Office,United States,Houston,Texas,85001,East,PROD-39167,Furniture,Storage,Product 7,949.86,7,0.1,214.16,10,2025-04-30 19:51:26,stream
+9,TEST-97490,2024-07-13,2025-04-15,First Class,CG-46934,Test-Customer-8,Consumer,United States,Houston,California,90001,East,PROD-92616,Furniture,Storage,Product 8,52.06,1,0.2,60.71,10,2025-04-30 19:51:26,stream
+10,TEST-36281,2024-09-12,2025-04-18,Same Day,CG-66716,Test-Customer-9,Consumer,United States,New York,California,60601,Central,PROD-80137,Furniture,Tables,Product 9,240.4,2,0.0,449.31,10,2025-04-30 19:51:26,stream

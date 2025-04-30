@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-61618,2024-06-09,2025-04-17,First Class,CG-82085,Test-Customer-0,Consumer,United States,New York,Arizona,60601,East,PROD-85291,Furniture,Storage,Product 0,342.52,6,0.1,349.54,8,2025-04-30 19:51:16,stream
+2,TEST-52780,2024-05-30,2025-04-03,Same Day,CG-62235,Test-Customer-1,Corporate,United States,New York,California,85001,Central,PROD-29903,Technology,Phones,Product 1,885.34,1,0.4,208.19,8,2025-04-30 19:51:16,stream
+3,TEST-22874,2024-08-26,2025-04-26,Standard Class,CG-37061,Test-Customer-2,Home Office,United States,New York,California,77001,East,PROD-86826,Technology,Chairs,Product 2,789.5,6,0.1,88.79,8,2025-04-30 19:51:16,stream
+4,TEST-69677,2024-07-25,2025-04-14,Same Day,CG-17396,Test-Customer-3,Corporate,United States,Phoenix,California,10001,Central,PROD-61444,Furniture,Binders,Product 3,660.01,7,0.4,-1.26,8,2025-04-30 19:51:16,stream
+5,TEST-37880,2025-03-14,2025-04-18,Same Day,CG-12718,Test-Customer-4,Corporate,United States,Phoenix,California,90001,West,PROD-53004,Furniture,Storage,Product 4,36.31,1,0.5,78.17,8,2025-04-30 19:51:16,stream
+6,TEST-97849,2024-11-05,2025-04-14,Second Class,CG-27153,Test-Customer-5,Home Office,United States,New York,Arizona,10001,Central,PROD-48806,Furniture,Storage,Product 5,601.7,8,0.2,45.97,8,2025-04-30 19:51:16,stream
+7,TEST-58665,2024-05-25,2025-04-16,First Class,CG-92000,Test-Customer-6,Corporate,United States,New York,Texas,90001,East,PROD-25198,Office Supplies,Tables,Product 6,503.8,3,0.3,316.68,8,2025-04-30 19:51:16,stream
+8,TEST-32537,2024-11-24,2025-04-07,First Class,CG-29617,Test-Customer-7,Consumer,United States,Phoenix,Texas,85001,South,PROD-49670,Technology,Binders,Product 7,153.56,6,0.3,-33.23,8,2025-04-30 19:51:16,stream
+9,TEST-56521,2024-10-12,2025-04-20,Standard Class,CG-53556,Test-Customer-8,Home Office,United States,Phoenix,Arizona,85001,South,PROD-77326,Technology,Tables,Product 8,846.36,3,0.0,430.34,8,2025-04-30 19:51:16,stream
+10,TEST-23064,2024-12-22,2025-04-23,First Class,CG-78145,Test-Customer-9,Consumer,United States,Houston,Arizona,90001,West,PROD-29339,Furniture,Tables,Product 9,989.97,7,0.1,81.58,8,2025-04-30 19:51:16,stream

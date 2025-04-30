@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-70738,2024-09-09,2025-04-02,Standard Class,CG-41513,Test-Customer-0,Home Office,United States,Phoenix,Arizona,10001,East,PROD-32540,Technology,Tables,Product 0,748.7,2,0.2,28.95,7,2025-04-30 19:51:21,stream
+2,TEST-45204,2025-03-25,2025-04-30,First Class,CG-82843,Test-Customer-1,Corporate,United States,Los Angeles,Texas,77001,West,PROD-13631,Furniture,Binders,Product 1,305.79,6,0.0,-36.13,7,2025-04-30 19:51:21,stream
+3,TEST-66679,2024-10-11,2025-04-30,Second Class,CG-21585,Test-Customer-2,Consumer,United States,New York,California,90001,Central,PROD-37544,Office Supplies,Chairs,Product 2,575.79,2,0.1,55.88,7,2025-04-30 19:51:21,stream
+4,TEST-99174,2025-04-19,2025-04-03,Same Day,CG-41544,Test-Customer-3,Consumer,United States,Houston,Texas,77001,Central,PROD-55260,Office Supplies,Storage,Product 3,656.3,4,0.0,491.52,7,2025-04-30 19:51:21,stream
+5,TEST-69371,2024-11-16,2025-04-16,Standard Class,CG-95860,Test-Customer-4,Corporate,United States,Los Angeles,New York,77001,Central,PROD-17873,Office Supplies,Phones,Product 4,463.66,2,0.2,1.35,7,2025-04-30 19:51:21,stream
+6,TEST-52676,2024-07-15,2025-04-25,Standard Class,CG-39600,Test-Customer-5,Corporate,United States,Chicago,Arizona,90001,South,PROD-58731,Technology,Tables,Product 5,302.39,8,0.3,165.55,7,2025-04-30 19:51:21,stream
+7,TEST-18786,2024-08-01,2025-04-20,Same Day,CG-20550,Test-Customer-6,Corporate,United States,Los Angeles,Texas,60601,West,PROD-71640,Technology,Tables,Product 6,938.42,4,0.1,412.41,7,2025-04-30 19:51:21,stream
+8,TEST-21042,2024-08-07,2025-04-23,Standard Class,CG-65899,Test-Customer-7,Consumer,United States,Los Angeles,Arizona,90001,West,PROD-40597,Furniture,Tables,Product 7,205.38,6,0.0,152.7,7,2025-04-30 19:51:21,stream
+9,TEST-47465,2025-01-19,2025-04-30,Same Day,CG-12525,Test-Customer-8,Consumer,United States,Phoenix,Texas,90001,West,PROD-38327,Technology,Binders,Product 8,818.54,1,0.5,227.75,7,2025-04-30 19:51:21,stream
+10,TEST-92033,2024-12-05,2025-04-30,First Class,CG-18979,Test-Customer-9,Consumer,United States,Phoenix,Texas,77001,South,PROD-44579,Furniture,Binders,Product 9,118.56,1,0.2,459.6,7,2025-04-30 19:51:21,stream

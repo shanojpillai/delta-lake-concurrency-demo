@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-56974,2024-06-25,2025-04-16,Second Class,CG-31810,Test-Customer-0,Corporate,United States,New York,Arizona,85001,West,PROD-49009,Technology,Storage,Product 0,187.69,2,0.0,-72.53,7,2025-04-30 19:51:11,stream
+2,TEST-14285,2024-07-27,2025-04-26,Second Class,CG-35622,Test-Customer-1,Corporate,United States,Houston,Texas,77001,Central,PROD-75659,Technology,Chairs,Product 1,798.44,4,0.4,190.5,7,2025-04-30 19:51:11,stream
+3,TEST-49629,2025-03-07,2025-04-27,Same Day,CG-67331,Test-Customer-2,Corporate,United States,Los Angeles,Illinois,85001,South,PROD-34572,Technology,Chairs,Product 2,589.87,3,0.5,480.25,7,2025-04-30 19:51:11,stream
+4,TEST-81122,2024-08-13,2025-04-09,First Class,CG-93008,Test-Customer-3,Home Office,United States,Phoenix,Arizona,77001,Central,PROD-98660,Office Supplies,Tables,Product 3,607.05,6,0.3,-93.85,7,2025-04-30 19:51:11,stream
+5,TEST-71186,2024-05-14,2025-04-05,First Class,CG-70887,Test-Customer-4,Consumer,United States,Phoenix,California,60601,Central,PROD-93719,Office Supplies,Chairs,Product 4,538.95,9,0.3,35.44,7,2025-04-30 19:51:11,stream
+6,TEST-95385,2024-07-08,2025-04-02,First Class,CG-53498,Test-Customer-5,Consumer,United States,New York,Illinois,60601,West,PROD-41785,Technology,Phones,Product 5,369.17,5,0.0,225.63,7,2025-04-30 19:51:11,stream
+7,TEST-25058,2024-11-08,2025-04-17,Same Day,CG-20109,Test-Customer-6,Corporate,United States,Houston,New York,90001,West,PROD-87765,Technology,Storage,Product 6,683.81,9,0.2,-0.21,7,2025-04-30 19:51:11,stream
+8,TEST-74615,2024-11-21,2025-04-27,Standard Class,CG-42569,Test-Customer-7,Home Office,United States,Chicago,Texas,85001,East,PROD-65418,Office Supplies,Phones,Product 7,941.06,3,0.1,10.31,7,2025-04-30 19:51:11,stream
+9,TEST-70417,2025-02-17,2025-04-16,Standard Class,CG-29640,Test-Customer-8,Home Office,United States,Phoenix,Illinois,90001,South,PROD-86663,Furniture,Tables,Product 8,712.92,6,0.5,457.05,7,2025-04-30 19:51:11,stream
+10,TEST-27135,2024-09-01,2025-04-01,Same Day,CG-88042,Test-Customer-9,Home Office,United States,Phoenix,Texas,90001,West,PROD-79915,Office Supplies,Phones,Product 9,862.84,6,0.1,42.77,7,2025-04-30 19:51:11,stream

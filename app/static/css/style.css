@@ -1,0 +1,82 @@
+/* Custom styles for Delta Lake Demo */
+.delta-logo {
+    max-height: 40px;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: #007bff;
+}
+
+.code-block {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.badge-delta {
+    background-color: #007bff;
+    color: white;
+}
+
+.badge-spark {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.loading-spinner {
+    width: 3rem;
+    height: 3rem;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+    background-color: rgba(0, 123, 255, 0.2);
+    color: #007bff;
+    font-weight: bold;
+}
+
+.table-history {
+    font-size: 0.9rem;
+}
+
+.version-badge {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #007bff;
+    color: white;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 1rem;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+}

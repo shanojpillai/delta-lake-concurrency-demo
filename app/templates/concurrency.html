@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+
+{% block title %}Concurrency - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-random me-2"></i>3. Concurrency Handling
+        </h1>
+        <div id="alerts-container"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-info-circle me-2"></i>About Concurrency
+            </div>
+            <div class="card-body">
+                <p>This page demonstrates Delta Lake's concurrency capabilities. The concurrency handling:</p>
+                <ol>
+                    <li>Uses optimistic concurrency control to manage multiple writers</li>
+                    <li>Implements retry logic with exponential backoff for handling conflicts</li>
+                    <li>Demonstrates serializable isolation for consistent reads</li>
+                    <li>Shows how Delta Lake maintains ACID guarantees during concurrent operations</li>
+                </ol>
+                <p>Use the controls to run batch updates while streaming is active to see how Delta Lake handles concurrency conflicts.</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-database me-2"></i>Delta Table Information
+                <button class="btn btn-sm btn-outline-primary float-end" onclick="fetchTableInfo()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Current Version:</label>
+                            <div id="table-version">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Record Count:</label>
+                            <div id="record-count">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">File Count:</label>
+                            <div id="file-count">Loading...</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Table Size:</label>
+                            <div id="table-size">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-play me-2"></i>Run Batch Updates
+            </div>
+            <div class="card-body">
+                <form id="batch-form">
+                    <div class="mb-3">
+                        <label for="interval" class="form-label">Interval (seconds)</label>
+                        <input type="number" class="form-control" id="interval" value="30" min="1" max="60">
+                        <div class="form-text">Time between update batches.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="max-batches" class="form-label">Max Batches</label>
+                        <input type="number" class="form-control" id="max-batches" value="1" min="1" max="10">
+                        <div class="form-text">Number of update batches to perform.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="update-pct" class="form-label">Update Percentage</label>
+                        <input type="number" class="form-control" id="update-pct" value="0.1" min="0.01" max="1" step="0.01">
+                        <div class="form-text">Percentage of records to update in each batch (0.1 = 10%).</div>
+                    </div>
+                    
+                    <button type="button" id="run-batch-btn" class="btn btn-primary" onclick="runBatchUpdate()">
+                        <i class="fas fa-play me-2"></i>Run Batch Update
+                    </button>
+                </form>
+                
+                <div class="loading mt-3">
+                    <div class="spinner-border loading-spinner text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Running batch update...</p>
+                </div>
+                
+                <div id="batch-output" class="mt-3" style="display: none;">
+                    <h5>Batch Update Output:</h5>
+                    <div class="code-block" id="output-text"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-chart-line me-2"></i>Concurrency Metrics
+            </div>
+            <div class="card-body">
+                <canvas id="concurrency-chart"></canvas>
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="refreshConcurrencyMetrics()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh Metrics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-history me-2"></i>Table History
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Timestamp</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-code me-2"></i>What's Happening Behind the Scenes
+            </div>
+            <div class="card-body">
+                <p>The concurrency handling involves several key components:</p>
+                
+                <h5>1. Optimistic Concurrency Control</h5>
+                <div class="code-block">
+# Delta Lake uses optimistic concurrency control
+# Writers don't take locks, but check if the data changed since they last read it
+# If it did, they retry the operation
+                </div>
+                
+                <h5>2. Retry Logic with Exponential Backoff</h5>
+                <div class="code-block">
+def update_with_retry(delta_table, condition, update_expr, max_retries=5):
+    retries = 0
+    success = False
+    
+    while retries < max_retries and not success:
+        try:
+            # Perform the update
+            delta_table.update(condition, update_expr)
+            success = True
+        except py4j.protocol.Py4JJavaError as e:
+            # Check if it's a concurrency exception
+            if "ConcurrentModificationException" in str(e):
+                retries += 1
+                # Exponential backoff with jitter
+                sleep_time = (2 ** retries) + random.uniform(0, 1)
+                time.sleep(sleep_time)
+            else:
+                # Not a concurrency exception, re-raise
+                raise e
+</div>
+                
+                <h5>3. Serializable Isolation</h5>
+                <div class="code-block">
+# Read data at a specific version
+df_snapshot = spark.read.format("delta").option("versionAsOf", version).load(delta_table_path)
+
+# Even if the table changes, the snapshot still sees the old version
+# This provides serializable isolation
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-arrow-right me-2"></i>Next Steps
+            </div>
+            <div class="card-body">
+                <p>Once you've explored the concurrency capabilities, proceed to the next step to learn about Delta Lake's MERGE operations.</p>
+                <a href="/merge" class="btn btn-primary">
+                    <i class="fas fa-code-branch me-2"></i>Go to MERGE
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Global variables
+    let concurrencyChart;
+    let versionCounts = [];
+    let retryCountData = [];
+    
+    // Function to run batch update
+    function runBatchUpdate() {
+        // Get parameters
+        const interval = $('#interval').val();
+        const maxBatches = $('#max-batches').val();
+        const updatePct = $('#update-pct').val();
+        
+        // Show loading spinner
+        showLoading();
+        $('#run-batch-btn').prop('disabled', true);
+        $('#batch-output').hide();
+        
+        // Call the API to run batch update
+        $.ajax({
+            url: '/api/run_batch_update',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                interval: interval,
+                max_batches: maxBatches,
+                update_pct: updatePct
+            }),
+            success: function(response) {
+                hideLoading();
+                $('#run-batch-btn').prop('disabled', false);
+                
+                if (response.success) {
+                    showAlert('Batch update completed successfully!', 'success');
+                    $('#batch-output').show();
+                    $('#output-text').text(response.output);
+                    
+                    // Refresh table info and metrics
+                    fetchTableInfo();
+                    refreshConcurrencyMetrics();
+                } else {
+                    showAlert('Batch update failed: ' + response.error, 'danger');
+                    $('#batch-output').show();
+                    $('#output-text').text('Batch update failed: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                $('#run-batch-btn').prop('disabled', false);
+                showAlert('Error running batch update: ' + error, 'danger');
+                $('#batch-output').show();
+                $('#output-text').text('Error running batch update: ' + error);
+            }
+        });
+    }
+    
+    // Function to refresh concurrency metrics
+    function refreshConcurrencyMetrics() {
+        // Fetch table info
+        fetchTableInfo();
+        
+        // Update chart with new data point
+        if (concurrencyChart && $('#table-version').text() !== 'Loading...') {
+            const version = parseInt($('#table-version').text());
+            
+            // Add new data point
+            const timestamp = new Date().toLocaleTimeString();
+            versionCounts.push({
+                x: timestamp,
+                y: version
+            });
+            
+            // Add random retry count for demonstration
+            retryCountData.push({
+                x: timestamp,
+                y: Math.floor(Math.random() * 3)  // Random number of retries (0-2)
+            });
+            
+            // Keep only the last 10 data points
+            if (versionCounts.length > 10) {
+                versionCounts.shift();
+                retryCountData.shift();
+            }
+            
+            // Update chart
+            concurrencyChart.data.labels = versionCounts.map(point => point.x);
+            concurrencyChart.data.datasets[0].data = versionCounts.map(point => point.y);
+            concurrencyChart.data.datasets[1].data = retryCountData.map(point => point.y);
+            concurrencyChart.update();
+        }
+    }
+    
+    // Function to initialize the concurrency chart
+    function initConcurrencyChart() {
+        const ctx = document.getElementById('concurrency-chart').getContext('2d');
+        concurrencyChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Table Version',
+                        data: [],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Retry Count',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.1,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Table Version'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Retry Count'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        },
+                        min: 0,
+                        max: 5,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Document ready
+    $(document).ready(function() {
+        // Initialize the concurrency chart
+        initConcurrencyChart();
+        
+        // Fetch table info on page load
+        fetchTableInfo();
+        
+        // Add initial data point to chart
+        setTimeout(refreshConcurrencyMetrics, 1000);
+    });
+</script>
+{% endblock %}

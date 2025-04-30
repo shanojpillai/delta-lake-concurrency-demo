@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-36714,2024-10-14,2025-04-25,First Class,CG-46672,Test-Customer-0,Consumer,United States,New York,Arizona,60601,West,PROD-65500,Technology,Storage,Product 0,730.69,1,0.1,298.15,53,2025-04-30 19:55:02,stream
+2,TEST-12002,2025-04-21,2025-04-27,Same Day,CG-51833,Test-Customer-1,Corporate,United States,New York,Illinois,85001,East,PROD-30209,Office Supplies,Storage,Product 1,865.74,5,0.1,0.22,53,2025-04-30 19:55:02,stream
+3,TEST-62795,2024-11-09,2025-04-21,First Class,CG-27179,Test-Customer-2,Home Office,United States,Phoenix,Texas,90001,West,PROD-67709,Furniture,Phones,Product 2,911.23,1,0.5,-40.05,53,2025-04-30 19:55:02,stream
+4,TEST-66588,2024-06-11,2025-04-04,Second Class,CG-68732,Test-Customer-3,Home Office,United States,Houston,New York,60601,East,PROD-88424,Office Supplies,Chairs,Product 3,886.07,9,0.5,193.51,53,2025-04-30 19:55:02,stream
+5,TEST-26481,2025-03-03,2025-04-10,Same Day,CG-27284,Test-Customer-4,Home Office,United States,Houston,Arizona,10001,West,PROD-19015,Technology,Phones,Product 4,239.09,6,0.3,64.66,53,2025-04-30 19:55:02,stream
+6,TEST-35386,2025-01-12,2025-04-27,First Class,CG-46220,Test-Customer-5,Consumer,United States,New York,Texas,77001,South,PROD-47687,Technology,Storage,Product 5,402.63,5,0.4,430.14,53,2025-04-30 19:55:02,stream
+7,TEST-81242,2024-09-25,2025-04-22,First Class,CG-33903,Test-Customer-6,Consumer,United States,Houston,Illinois,10001,East,PROD-45920,Technology,Storage,Product 6,520.9,5,0.2,440.66,53,2025-04-30 19:55:02,stream
+8,TEST-65917,2025-03-01,2025-04-18,Second Class,CG-74253,Test-Customer-7,Home Office,United States,Chicago,Texas,10001,West,PROD-66150,Furniture,Tables,Product 7,486.71,7,0.1,434.78,53,2025-04-30 19:55:02,stream
+9,TEST-26507,2025-04-22,2025-04-02,First Class,CG-75660,Test-Customer-8,Home Office,United States,Houston,New York,60601,West,PROD-78911,Office Supplies,Phones,Product 8,555.1,2,0.0,373.94,53,2025-04-30 19:55:02,stream
+10,TEST-46692,2025-04-20,2025-04-26,Same Day,CG-31526,Test-Customer-9,Corporate,United States,New York,California,90001,West,PROD-63126,Furniture,Phones,Product 9,653.89,6,0.1,183.23,53,2025-04-30 19:55:02,stream

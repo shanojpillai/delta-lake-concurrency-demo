@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-13968,2025-03-09,2025-04-24,First Class,CG-69823,Test-Customer-0,Corporate,United States,Houston,Texas,85001,West,PROD-92065,Furniture,Phones,Product 0,90.92,6,0.0,174.61,37,2025-04-30 19:53:52,stream
+2,TEST-54331,2024-07-22,2025-04-20,First Class,CG-76848,Test-Customer-1,Home Office,United States,New York,California,77001,Central,PROD-24281,Furniture,Chairs,Product 1,696.89,1,0.2,336.2,37,2025-04-30 19:53:52,stream
+3,TEST-53253,2024-06-22,2025-04-01,First Class,CG-57394,Test-Customer-2,Corporate,United States,Los Angeles,New York,85001,West,PROD-67493,Furniture,Tables,Product 2,108.94,5,0.2,188.09,37,2025-04-30 19:53:52,stream
+4,TEST-96082,2024-07-03,2025-04-02,Same Day,CG-77156,Test-Customer-3,Consumer,United States,Houston,California,90001,South,PROD-10722,Furniture,Chairs,Product 3,896.17,5,0.0,337.87,37,2025-04-30 19:53:52,stream
+5,TEST-91510,2024-07-15,2025-04-05,Same Day,CG-97878,Test-Customer-4,Consumer,United States,Chicago,Illinois,85001,East,PROD-62218,Technology,Binders,Product 4,29.79,8,0.4,190.92,37,2025-04-30 19:53:52,stream
+6,TEST-90085,2024-12-14,2025-04-18,Second Class,CG-54643,Test-Customer-5,Corporate,United States,Houston,Arizona,10001,East,PROD-33601,Furniture,Chairs,Product 5,479.1,7,0.3,480.94,37,2025-04-30 19:53:52,stream
+7,TEST-88459,2025-03-30,2025-04-08,Same Day,CG-47963,Test-Customer-6,Home Office,United States,New York,Illinois,10001,Central,PROD-68465,Office Supplies,Phones,Product 6,130.97,3,0.1,304.09,37,2025-04-30 19:53:52,stream
+8,TEST-86260,2025-03-21,2025-04-15,First Class,CG-76496,Test-Customer-7,Corporate,United States,Los Angeles,Texas,60601,West,PROD-96316,Technology,Tables,Product 7,681.37,7,0.1,77.54,37,2025-04-30 19:53:52,stream
+9,TEST-26317,2024-12-06,2025-04-17,Standard Class,CG-15608,Test-Customer-8,Corporate,United States,Phoenix,Arizona,10001,South,PROD-88978,Office Supplies,Phones,Product 8,53.97,5,0.1,420.68,37,2025-04-30 19:53:52,stream
+10,TEST-37254,2024-06-20,2025-04-26,Standard Class,CG-20176,Test-Customer-9,Home Office,United States,Phoenix,Texas,77001,Central,PROD-72991,Technology,Phones,Product 9,496.31,3,0.2,34.41,37,2025-04-30 19:53:52,stream

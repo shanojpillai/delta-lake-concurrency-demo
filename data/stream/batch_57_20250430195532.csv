@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-73890,2025-04-08,2025-04-23,Same Day,CG-84733,Test-Customer-0,Corporate,United States,Houston,New York,85001,East,PROD-51629,Furniture,Tables,Product 0,391.84,7,0.3,157.8,57,2025-04-30 19:55:32,stream
+2,TEST-96382,2025-02-26,2025-04-09,Same Day,CG-30394,Test-Customer-1,Corporate,United States,Chicago,Arizona,90001,South,PROD-95152,Technology,Binders,Product 1,202.38,6,0.4,260.36,57,2025-04-30 19:55:32,stream
+3,TEST-66261,2025-03-17,2025-04-24,First Class,CG-46446,Test-Customer-2,Corporate,United States,Los Angeles,Texas,77001,West,PROD-97628,Office Supplies,Storage,Product 2,384.87,8,0.5,498.3,57,2025-04-30 19:55:32,stream
+4,TEST-35551,2024-08-14,2025-04-21,Second Class,CG-62230,Test-Customer-3,Corporate,United States,Los Angeles,Arizona,77001,Central,PROD-13949,Technology,Chairs,Product 3,882.84,8,0.4,451.13,57,2025-04-30 19:55:32,stream
+5,TEST-74164,2025-03-03,2025-04-10,Same Day,CG-91535,Test-Customer-4,Consumer,United States,Chicago,Arizona,60601,Central,PROD-73724,Furniture,Chairs,Product 4,81.12,5,0.5,482.9,57,2025-04-30 19:55:32,stream
+6,TEST-24476,2024-07-11,2025-04-18,First Class,CG-93691,Test-Customer-5,Consumer,United States,Phoenix,Illinois,85001,East,PROD-76281,Office Supplies,Chairs,Product 5,172.48,6,0.0,264.12,57,2025-04-30 19:55:32,stream
+7,TEST-15050,2024-09-20,2025-04-27,Same Day,CG-20488,Test-Customer-6,Consumer,United States,New York,California,77001,Central,PROD-74995,Furniture,Tables,Product 6,28.0,1,0.1,403.76,57,2025-04-30 19:55:32,stream
+8,TEST-11289,2024-11-14,2025-04-23,First Class,CG-11594,Test-Customer-7,Corporate,United States,Houston,Arizona,10001,West,PROD-48844,Office Supplies,Binders,Product 7,995.55,9,0.4,-27.15,57,2025-04-30 19:55:32,stream
+9,TEST-48237,2025-01-22,2025-04-01,Standard Class,CG-48115,Test-Customer-8,Corporate,United States,Chicago,Arizona,60601,East,PROD-12091,Technology,Phones,Product 8,656.65,3,0.0,415.01,57,2025-04-30 19:55:32,stream
+10,TEST-30386,2025-01-14,2025-04-17,First Class,CG-11519,Test-Customer-9,Consumer,United States,Phoenix,Texas,77001,Central,PROD-75321,Technology,Storage,Product 9,961.68,5,0.0,215.91,57,2025-04-30 19:55:32,stream

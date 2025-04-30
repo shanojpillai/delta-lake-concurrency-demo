@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-97969,2024-06-08,2025-04-08,Second Class,CG-10684,Test-Customer-0,Corporate,United States,Houston,Arizona,85001,Central,PROD-15673,Office Supplies,Chairs,Product 0,224.23,6,0.4,461.08,5,2025-04-30 19:51:11,stream
+2,TEST-66492,2025-04-04,2025-04-23,Standard Class,CG-98510,Test-Customer-1,Corporate,United States,Chicago,Illinois,60601,Central,PROD-78500,Office Supplies,Binders,Product 1,24.01,6,0.0,-28.52,5,2025-04-30 19:51:11,stream
+3,TEST-91563,2025-03-29,2025-04-19,Same Day,CG-34018,Test-Customer-2,Corporate,United States,New York,Arizona,85001,West,PROD-43843,Office Supplies,Tables,Product 2,793.49,5,0.3,26.69,5,2025-04-30 19:51:11,stream
+4,TEST-97601,2024-07-12,2025-04-26,Same Day,CG-52067,Test-Customer-3,Corporate,United States,Chicago,California,10001,Central,PROD-43732,Furniture,Storage,Product 3,98.87,1,0.1,380.73,5,2025-04-30 19:51:11,stream
+5,TEST-95384,2024-05-12,2025-04-20,Same Day,CG-92841,Test-Customer-4,Corporate,United States,Phoenix,Arizona,90001,Central,PROD-98459,Office Supplies,Binders,Product 4,536.65,4,0.0,254.29,5,2025-04-30 19:51:11,stream
+6,TEST-13599,2025-02-15,2025-04-16,Same Day,CG-79752,Test-Customer-5,Corporate,United States,New York,Texas,77001,Central,PROD-45411,Technology,Tables,Product 5,230.48,2,0.2,296.12,5,2025-04-30 19:51:11,stream
+7,TEST-27907,2024-07-17,2025-04-21,First Class,CG-61417,Test-Customer-6,Corporate,United States,Los Angeles,Illinois,77001,West,PROD-33934,Technology,Binders,Product 6,571.97,5,0.0,452.87,5,2025-04-30 19:51:11,stream
+8,TEST-74955,2024-10-28,2025-04-15,Same Day,CG-71864,Test-Customer-7,Consumer,United States,Phoenix,New York,77001,South,PROD-46047,Furniture,Storage,Product 7,209.4,1,0.2,-92.81,5,2025-04-30 19:51:11,stream
+9,TEST-45729,2024-07-26,2025-04-20,Second Class,CG-34938,Test-Customer-8,Corporate,United States,New York,Arizona,10001,East,PROD-34795,Furniture,Chairs,Product 8,440.42,6,0.0,-7.98,5,2025-04-30 19:51:11,stream
+10,TEST-29384,2024-07-18,2025-04-24,Second Class,CG-43137,Test-Customer-9,Consumer,United States,Los Angeles,Texas,10001,East,PROD-19981,Technology,Binders,Product 9,786.92,6,0.1,177.24,5,2025-04-30 19:51:11,stream

@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-60007,2024-08-21,2025-04-23,Same Day,CG-64994,Test-Customer-0,Home Office,United States,Phoenix,California,77001,East,PROD-52938,Office Supplies,Phones,Product 0,707.96,1,0.1,206.61,78,2025-04-30 19:57:17,stream
+2,TEST-24089,2024-08-01,2025-04-17,Same Day,CG-60475,Test-Customer-1,Home Office,United States,Los Angeles,New York,85001,South,PROD-18535,Technology,Chairs,Product 1,209.28,9,0.4,-10.88,78,2025-04-30 19:57:17,stream
+3,TEST-34030,2024-10-17,2025-04-23,Standard Class,CG-96102,Test-Customer-2,Consumer,United States,Chicago,Arizona,77001,Central,PROD-94883,Furniture,Tables,Product 2,218.94,6,0.3,70.27,78,2025-04-30 19:57:17,stream
+4,TEST-61725,2024-09-25,2025-04-28,Same Day,CG-97953,Test-Customer-3,Consumer,United States,Houston,California,90001,West,PROD-44506,Technology,Phones,Product 3,980.51,1,0.1,375.56,78,2025-04-30 19:57:17,stream
+5,TEST-10538,2024-09-09,2025-04-23,First Class,CG-91923,Test-Customer-4,Corporate,United States,Chicago,Arizona,60601,East,PROD-55473,Furniture,Binders,Product 4,688.66,8,0.5,149.49,78,2025-04-30 19:57:17,stream
+6,TEST-34815,2024-12-09,2025-04-14,First Class,CG-56198,Test-Customer-5,Home Office,United States,Chicago,Arizona,85001,South,PROD-33329,Technology,Chairs,Product 5,761.28,1,0.4,-26.39,78,2025-04-30 19:57:17,stream
+7,TEST-30156,2024-12-01,2025-04-03,Second Class,CG-14438,Test-Customer-6,Corporate,United States,Houston,Arizona,90001,South,PROD-40750,Furniture,Chairs,Product 6,734.35,5,0.3,492.09,78,2025-04-30 19:57:17,stream
+8,TEST-91065,2024-08-29,2025-04-29,Same Day,CG-79767,Test-Customer-7,Corporate,United States,New York,Texas,10001,South,PROD-99789,Furniture,Chairs,Product 7,947.94,4,0.4,287.25,78,2025-04-30 19:57:17,stream
+9,TEST-17647,2025-04-29,2025-04-01,Second Class,CG-87219,Test-Customer-8,Consumer,United States,Phoenix,Arizona,10001,South,PROD-57656,Furniture,Storage,Product 8,388.12,1,0.3,328.92,78,2025-04-30 19:57:17,stream
+10,TEST-40094,2025-03-11,2025-04-09,Same Day,CG-91995,Test-Customer-9,Home Office,United States,Phoenix,Texas,60601,South,PROD-18430,Technology,Chairs,Product 9,801.71,7,0.2,285.25,78,2025-04-30 19:57:17,stream

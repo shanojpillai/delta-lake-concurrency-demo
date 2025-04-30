@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-18232,2024-05-12,2025-04-03,First Class,CG-40660,Test-Customer-0,Consumer,United States,New York,California,77001,Central,PROD-49571,Furniture,Phones,Product 0,238.82,4,0.0,436.92,59,2025-04-30 19:55:42,stream
+2,TEST-38621,2024-06-16,2025-04-12,First Class,CG-18374,Test-Customer-1,Consumer,United States,Phoenix,Texas,10001,East,PROD-58532,Furniture,Storage,Product 1,996.63,1,0.5,23.17,59,2025-04-30 19:55:42,stream
+3,TEST-84588,2025-01-06,2025-04-15,First Class,CG-71974,Test-Customer-2,Consumer,United States,New York,California,85001,South,PROD-77857,Furniture,Chairs,Product 2,28.17,4,0.2,271.75,59,2025-04-30 19:55:42,stream
+4,TEST-42222,2025-03-03,2025-04-25,Same Day,CG-88261,Test-Customer-3,Consumer,United States,New York,Texas,90001,West,PROD-48145,Technology,Phones,Product 3,337.38,2,0.5,402.02,59,2025-04-30 19:55:42,stream
+5,TEST-30106,2024-05-21,2025-04-18,Same Day,CG-10013,Test-Customer-4,Consumer,United States,Chicago,California,85001,South,PROD-69284,Office Supplies,Binders,Product 4,626.14,6,0.4,383.45,59,2025-04-30 19:55:42,stream
+6,TEST-26702,2024-10-16,2025-04-06,First Class,CG-43223,Test-Customer-5,Consumer,United States,Chicago,Illinois,60601,Central,PROD-38035,Technology,Phones,Product 5,240.92,6,0.0,360.45,59,2025-04-30 19:55:42,stream
+7,TEST-22319,2024-10-19,2025-04-07,Standard Class,CG-91209,Test-Customer-6,Home Office,United States,New York,New York,90001,South,PROD-81138,Office Supplies,Chairs,Product 6,135.7,7,0.5,417.41,59,2025-04-30 19:55:42,stream
+8,TEST-68933,2024-05-01,2025-04-24,First Class,CG-55228,Test-Customer-7,Corporate,United States,Los Angeles,Texas,90001,South,PROD-56033,Office Supplies,Storage,Product 7,734.52,4,0.4,485.77,59,2025-04-30 19:55:42,stream
+9,TEST-54720,2025-01-11,2025-04-02,Standard Class,CG-53185,Test-Customer-8,Consumer,United States,New York,Texas,85001,South,PROD-99024,Furniture,Tables,Product 8,435.2,6,0.4,109.45,59,2025-04-30 19:55:42,stream
+10,TEST-40481,2025-01-23,2025-04-30,Same Day,CG-50919,Test-Customer-9,Home Office,United States,Houston,California,60601,East,PROD-49316,Technology,Tables,Product 9,774.51,2,0.0,137.63,59,2025-04-30 19:55:42,stream

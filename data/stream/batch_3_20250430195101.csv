@@ -1,0 +1,11 @@
+Row_ID,Order_ID,Order_Date,Ship_Date,Ship_Mode,Customer_ID,Customer_Name,Segment,Country,City,State,Postal_Code,Region,Product_ID,Category,Sub_Category,Product_Name,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,TEST-72579,2024-09-09,2025-04-16,Same Day,CG-33236,Test-Customer-0,Consumer,United States,New York,California,60601,East,PROD-29929,Technology,Storage,Product 0,501.21,3,0.5,187.69,3,2025-04-30 19:51:01,stream
+2,TEST-14152,2024-10-31,2025-04-25,First Class,CG-24068,Test-Customer-1,Consumer,United States,New York,California,60601,South,PROD-55475,Technology,Binders,Product 1,446.66,6,0.2,339.02,3,2025-04-30 19:51:01,stream
+3,TEST-97617,2025-01-20,2025-04-29,Second Class,CG-48198,Test-Customer-2,Home Office,United States,Chicago,New York,85001,West,PROD-70842,Technology,Storage,Product 2,121.41,4,0.3,90.37,3,2025-04-30 19:51:01,stream
+4,TEST-66208,2024-05-08,2025-04-28,Same Day,CG-11885,Test-Customer-3,Corporate,United States,Chicago,New York,85001,East,PROD-84035,Technology,Tables,Product 3,135.13,3,0.1,92.45,3,2025-04-30 19:51:01,stream
+5,TEST-27592,2024-10-24,2025-04-26,Second Class,CG-64751,Test-Customer-4,Consumer,United States,Chicago,Illinois,10001,South,PROD-24444,Technology,Storage,Product 4,368.8,7,0.5,340.34,3,2025-04-30 19:51:01,stream
+6,TEST-61402,2024-07-29,2025-04-11,Standard Class,CG-30920,Test-Customer-5,Consumer,United States,Houston,Arizona,77001,East,PROD-17077,Furniture,Storage,Product 5,931.85,5,0.4,444.61,3,2025-04-30 19:51:01,stream
+7,TEST-65498,2025-03-12,2025-04-25,First Class,CG-54881,Test-Customer-6,Consumer,United States,New York,Texas,77001,Central,PROD-91962,Furniture,Tables,Product 6,22.78,1,0.5,181.76,3,2025-04-30 19:51:01,stream
+8,TEST-60241,2024-07-29,2025-04-24,First Class,CG-33308,Test-Customer-7,Corporate,United States,Houston,Texas,85001,South,PROD-78948,Office Supplies,Binders,Product 7,699.84,9,0.1,-25.71,3,2025-04-30 19:51:01,stream
+9,TEST-66088,2024-06-15,2025-04-08,Same Day,CG-40866,Test-Customer-8,Corporate,United States,Chicago,Texas,77001,West,PROD-71032,Furniture,Chairs,Product 8,727.28,8,0.3,416.22,3,2025-04-30 19:51:01,stream
+10,TEST-81364,2024-12-23,2025-04-06,First Class,CG-67677,Test-Customer-9,Consumer,United States,Chicago,Texas,60601,West,PROD-79869,Furniture,Binders,Product 9,920.37,4,0.2,230.28,3,2025-04-30 19:51:01,stream

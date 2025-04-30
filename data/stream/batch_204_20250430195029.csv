@@ -1,0 +1,11 @@
+Row ID,Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Category,Sub-Category,Sales,Quantity,Discount,Profit,Batch,Timestamp,Source
+1,STREAM-204-0,2025-04-19,2025-05-03,Same Day,CG-STREAM-99951,Stream-Customer-0,Home Office,Office Supplies,Storage,426.5,2,0.0,102.66,204,2025-04-30 19:50:29,stream
+2,STREAM-204-1,2025-04-13,2025-05-09,First Class,CG-STREAM-41712,Stream-Customer-1,Corporate,Technology,Tables,427.58,4,0.1,155.82,204,2025-04-30 19:50:29,stream
+3,STREAM-204-2,2025-04-10,2025-05-04,Same Day,CG-STREAM-15162,Stream-Customer-2,Consumer,Furniture,Chairs,569.78,8,0.1,242.96,204,2025-04-30 19:50:29,stream
+4,STREAM-204-3,2025-04-01,2025-05-08,Same Day,CG-STREAM-52934,Stream-Customer-3,Home Office,Technology,Phones,285.96,7,0.0,176.09,204,2025-04-30 19:50:29,stream
+5,STREAM-204-4,2025-04-12,2025-05-04,Standard Class,CG-STREAM-84515,Stream-Customer-4,Home Office,Furniture,Tables,218.74,9,0.4,-66.51,204,2025-04-30 19:50:29,stream
+6,STREAM-204-5,2025-04-10,2025-05-02,First Class,CG-STREAM-18883,Stream-Customer-5,Home Office,Furniture,Binders,49.8,5,0.3,-50.69,204,2025-04-30 19:50:29,stream
+7,STREAM-204-6,2025-04-16,2025-05-07,First Class,CG-STREAM-83139,Stream-Customer-6,Home Office,Furniture,Tables,422.19,6,0.5,200.19,204,2025-04-30 19:50:29,stream
+8,STREAM-204-7,2025-04-16,2025-05-06,Same Day,CG-STREAM-37593,Stream-Customer-7,Home Office,Technology,Binders,958.29,8,0.5,114.48,204,2025-04-30 19:50:29,stream
+9,STREAM-204-8,2025-04-12,2025-05-06,First Class,CG-STREAM-85726,Stream-Customer-8,Home Office,Technology,Tables,72.31,8,0.5,390.16,204,2025-04-30 19:50:29,stream
+10,STREAM-204-9,2025-04-04,2025-05-09,Standard Class,CG-STREAM-51872,Stream-Customer-9,Home Office,Furniture,Storage,917.37,9,0.5,61.16,204,2025-04-30 19:50:29,stream
