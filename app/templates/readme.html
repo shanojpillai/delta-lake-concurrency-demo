@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}README - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">README</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        <li class="breadcrumb-item active">README</li>
+    </ol>
+    
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Delta Lake Concurrency Demo</h5>
+                </div>
+                <div class="card-body">
+                    <p>This application demonstrates Delta Lake's capabilities through a web UI and Jupyter notebooks.</p>
+                    
+                    <h2>Features</h2>
+                    <ul>
+                        <li><strong>Setup</strong>: Initialize the Delta Lake table with sample data</li>
+                        <li><strong>Streaming</strong>: Demonstrate Delta Lake's streaming capabilities</li>
+                        <li><strong>Concurrency</strong>: Explore how Delta Lake handles concurrent operations</li>
+                        <li><strong>MERGE Operations</strong>: Learn about Delta Lake's MERGE command</li>
+                        <li><strong>Optimization</strong>: Understand Delta Lake's optimization features (OPTIMIZE, Z-ORDER)</li>
+                        <li><strong>Schema Evolution</strong>: See how Delta Lake handles schema changes</li>
+                        <li><strong>Time Travel</strong>: Explore Delta Lake's time travel capabilities</li>
+                    </ul>
+                    
+                    <h2>Getting Started</h2>
+                    <p>Follow these steps to get started with the demo:</p>
+                    <ol>
+                        <li>Go to the <a href="/setup">Setup</a> page and run the setup process</li>
+                        <li>Explore the different features through the navigation menu</li>
+                        <li>Click on the "Open Notebook" button to see detailed code examples</li>
+                    </ol>
+                    
+                    <h2>Use Cases</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Use Case</th>
+                                    <th>Benefits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Streaming</td>
+                                    <td>Real-time data processing</td>
+                                    <td>Process data as it arrives, without waiting for batch jobs</td>
+                                </tr>
+                                <tr>
+                                    <td>Concurrency</td>
+                                    <td>Multiple users/processes updating data</td>
+                                    <td>Prevent conflicts and ensure data consistency</td>
+                                </tr>
+                                <tr>
+                                    <td>MERGE</td>
+                                    <td>Upsert operations</td>
+                                    <td>Efficiently update and insert data in a single operation</td>
+                                </tr>
+                                <tr>
+                                    <td>Optimization</td>
+                                    <td>Improve query performance</td>
+                                    <td>Faster queries and reduced storage costs</td>
+                                </tr>
+                                <tr>
+                                    <td>Schema Evolution</td>
+                                    <td>Changing data requirements</td>
+                                    <td>Add, modify, or remove columns without breaking existing queries</td>
+                                </tr>
+                                <tr>
+                                    <td>Time Travel</td>
+                                    <td>Audit and recovery</td>
+                                    <td>View historical data and recover from errors</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h2>Performance Optimization</h2>
+                    <p>This demo includes several performance optimizations:</p>
+                    <ul>
+                        <li><strong>Z-Ordering</strong>: Improves query performance by co-locating related data</li>
+                        <li><strong>Partitioning</strong>: Organizes data for efficient filtering</li>
+                        <li><strong>Caching</strong>: Reduces redundant computations</li>
+                        <li><strong>Batch Processing</strong>: Processes data in chunks for better resource utilization</li>
+                    </ul>
+                    
+                    <h2>Architecture</h2>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <pre style="text-align: left; font-size: 0.9em;">
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│                 │     │                 │     │                 │
+│   Flask Web     │     │   PySpark       │     │   Delta Lake    │
+│   Application   │◄────┤   Backend       │◄────┤   Storage       │
+│                 │     │                 │     │                 │
+└────────┬────────┘     └────────┬────────┘     └─────────────────┘
+         │                       │
+         │                       │
+         ▼                       ▼
+┌─────────────────┐     ┌─────────────────┐
+│                 │     │                 │
+│   Web UI        │     │   Jupyter       │
+│   (Browser)     │     │   Notebooks     │
+│                 │     │                 │
+└─────────────────┘     └─────────────────┘</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2>Resources</h2>
+                    <ul>
+                        <li><a href="https://delta.io/" target="_blank">Delta Lake Website</a></li>
+                        <li><a href="https://docs.delta.io/" target="_blank">Delta Lake Documentation</a></li>
+                        <li><a href="https://github.com/delta-io/delta" target="_blank">Delta Lake GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

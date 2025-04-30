@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+
+{% block title %}Performance Optimization - Delta Lake Demo{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Performance Optimization</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        <li class="breadcrumb-item active">Performance Optimization</li>
+    </ol>
+    
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Delta Lake Performance Optimization</h5>
+                </div>
+                <div class="card-body">
+                    <p>This page provides tools to optimize the performance of your Delta Lake tables.</p>
+                    
+                    <div id="alerts-container"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Table Metrics</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Current Version</th>
+                                                    <td id="table-version">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Record Count</th>
+                                                    <td id="record-count">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>File Count</th>
+                                                    <td id="file-count">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Table Size</th>
+                                                    <td id="table-size">-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Optimization Recommendations</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="recommendations-container">
+                                        <p>Click "Analyze Table" to get optimization recommendations.</p>
+                                    </div>
+                                    <button id="analyze-btn" class="btn btn-primary mt-3">
+                                        <i class="fas fa-search me-2"></i>Analyze Table
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">OPTIMIZE</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Run OPTIMIZE to compact small files and improve query performance.</p>
+                                    <button id="optimize-btn" class="btn btn-primary">
+                                        <i class="fas fa-bolt me-2"></i>Run OPTIMIZE
+                                    </button>
+                                    
+                                    <div id="optimize-results" class="mt-3" style="display: none;">
+                                        <h6>Results:</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Metric</th>
+                                                        <th>Before</th>
+                                                        <th>After</th>
+                                                        <th>Improvement</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>File Count</th>
+                                                        <td id="before-files">-</td>
+                                                        <td id="after-files">-</td>
+                                                        <td id="files-improvement">-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Size (MB)</th>
+                                                        <td id="before-size">-</td>
+                                                        <td id="after-size">-</td>
+                                                        <td id="size-improvement">-</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Z-ORDER</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Run Z-ORDER BY to co-locate related data and improve query performance.</p>
+                                    <div class="form-group mb-3">
+                                        <label for="zorder-columns">Columns to Z-ORDER BY:</label>
+                                        <select id="zorder-columns" class="form-select" multiple>
+                                            <option value="Order_Date">Order Date</option>
+                                            <option value="Customer_ID">Customer ID</option>
+                                            <option value="Product_ID">Product ID</option>
+                                            <option value="Ship_Mode">Ship Mode</option>
+                                            <option value="Segment">Segment</option>
+                                            <option value="Country">Country</option>
+                                            <option value="City">City</option>
+                                            <option value="State">State</option>
+                                            <option value="Region">Region</option>
+                                            <option value="Category">Category</option>
+                                            <option value="Sub_Category">Sub-Category</option>
+                                        </select>
+                                        <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple columns</small>
+                                    </div>
+                                    <button id="zorder-btn" class="btn btn-primary">
+                                        <i class="fas fa-sort-amount-down me-2"></i>Run Z-ORDER
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Performance History</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="performance-chart" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="loading">
+                        <div class="spinner-border loading-spinner text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Processing... This may take a few moments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Performance chart
+    let performanceChart = null;
+    
+    // Initialize performance chart
+    function initPerformanceChart() {
+        const ctx = document.getElementById('performance-chart').getContext('2d');
+        performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'File Count',
+                        data: [],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Size (MB)',
+                        data: [],
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    
+    // Update performance chart with new data
+    function updatePerformanceChart(history) {
+        if (!performanceChart) {
+            initPerformanceChart();
+        }
+        
+        const labels = history.map(entry => new Date(entry.timestamp).toLocaleString());
+        const fileData = history.map(entry => entry.metrics ? entry.metrics.num_files : 0);
+        const sizeData = history.map(entry => entry.metrics ? entry.metrics.size_in_mb : 0);
+        
+        performanceChart.data.labels = labels;
+        performanceChart.data.datasets[0].data = fileData;
+        performanceChart.data.datasets[1].data = sizeData;
+        performanceChart.update();
+    }
+    
+    // Fetch performance history
+    function fetchPerformanceHistory() {
+        $.ajax({
+            url: '/api/performance_history',
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    updatePerformanceChart(response.history);
+                } else {
+                    showAlert('Failed to fetch performance history: ' + response.error, 'danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                showAlert('Error fetching performance history: ' + error, 'danger');
+            }
+        });
+    }
+    
+    // Analyze table for optimization recommendations
+    function analyzeTable() {
+        showLoading();
+        
+        $.ajax({
+            url: '/api/recommend_optimizations',
+            method: 'GET',
+            success: function(response) {
+                hideLoading();
+                
+                if (response.success) {
+                    displayRecommendations(response.recommendations);
+                } else {
+                    showAlert('Failed to analyze table: ' + response.error, 'danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                showAlert('Error analyzing table: ' + error, 'danger');
+            }
+        });
+    }
+    
+    // Display optimization recommendations
+    function displayRecommendations(recommendations) {
+        if (!recommendations || recommendations.length === 0) {
+            $('#recommendations-container').html('<p>No optimization recommendations found.</p>');
+            return;
+        }
+        
+        let html = '<ul class="list-group">';
+        recommendations.forEach(rec => {
+            let icon = '';
+            switch (rec.type) {
+                case 'optimize':
+                    icon = '<i class="fas fa-bolt text-warning me-2"></i>';
+                    break;
+                case 'partition':
+                    icon = '<i class="fas fa-table-columns text-primary me-2"></i>';
+                    break;
+                case 'z_order':
+                    icon = '<i class="fas fa-sort-amount-down text-success me-2"></i>';
+                    break;
+                case 'vacuum':
+                    icon = '<i class="fas fa-trash text-danger me-2"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle me-2"></i>';
+            }
+            
+            html += `
+                <li class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">${icon}${rec.description}</h6>
+                    </div>
+                    <small class="text-muted">${rec.reason}</small>
+                </li>
+            `;
+        });
+        html += '</ul>';
+        
+        $('#recommendations-container').html(html);
+    }
+    
+    // Run OPTIMIZE
+    function runOptimize() {
+        showLoading();
+        
+        $.ajax({
+            url: '/api/run_optimize',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({}),
+            success: function(response) {
+                hideLoading();
+                
+                if (response.success) {
+                    showAlert('OPTIMIZE completed successfully', 'success');
+                    displayOptimizeResults(response);
+                    fetchTableInfo();
+                } else {
+                    showAlert('Failed to run OPTIMIZE: ' + response.error, 'danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                showAlert('Error running OPTIMIZE: ' + error, 'danger');
+            }
+        });
+    }
+    
+    // Display OPTIMIZE results
+    function displayOptimizeResults(data) {
+        $('#before-files').text(data.before_metrics.num_files.toLocaleString());
+        $('#after-files').text(data.after_metrics.num_files.toLocaleString());
+        $('#files-improvement').text(`${data.file_reduction.toLocaleString()} (${data.file_reduction_pct.toFixed(2)}%)`);
+        
+        $('#before-size').text(data.before_metrics.size_in_mb.toFixed(2));
+        $('#after-size').text(data.after_metrics.size_in_mb.toFixed(2));
+        $('#size-improvement').text(`${(data.size_reduction / (1024 * 1024)).toFixed(2)} MB (${data.size_reduction_pct.toFixed(2)}%)`);
+        
+        $('#optimize-results').show();
+    }
+    
+    // Run Z-ORDER
+    function runZOrder() {
+        const columns = $('#zorder-columns').val();
+        
+        if (!columns || columns.length === 0) {
+            showAlert('Please select at least one column for Z-ORDER', 'warning');
+            return;
+        }
+        
+        showLoading();
+        
+        $.ajax({
+            url: '/api/run_zorder',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ columns: columns }),
+            success: function(response) {
+                hideLoading();
+                
+                if (response.success) {
+                    showAlert(response.message, 'success');
+                    fetchTableInfo();
+                } else {
+                    showAlert('Failed to run Z-ORDER: ' + response.error, 'danger');
+                }
+            },
+            error: function(xhr, status, error) {
+                hideLoading();
+                showAlert('Error running Z-ORDER: ' + error, 'danger');
+            }
+        });
+    }
+    
+    // Document ready
+    $(document).ready(function() {
+        // Initialize performance chart
+        initPerformanceChart();
+        
+        // Fetch table info
+        fetchTableInfo();
+        
+        // Fetch performance history
+        fetchPerformanceHistory();
+        
+        // Analyze button click
+        $('#analyze-btn').on('click', function() {
+            analyzeTable();
+        });
+        
+        // OPTIMIZE button click
+        $('#optimize-btn').on('click', function() {
+            runOptimize();
+        });
+        
+        // Z-ORDER button click
+        $('#zorder-btn').on('click', function() {
+            runZOrder();
+        });
+    });
+</script>
+{% endblock %}

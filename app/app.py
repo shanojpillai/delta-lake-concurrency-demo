@@ -112,12 +112,12 @@ def run_script(script_path, args=None):
 
         print(f"Running script {script_path} with command: {' '.join(cmd)}")
         result = subprocess.run(cmd, capture_output=True, text=True)
-        
+
         if result.returncode != 0:
             print(f"Script execution failed with return code {result.returncode}")
             print(f"Error output: {result.stderr}")
             raise RuntimeError(f"Script execution failed: {result.stderr}")
-        
+
         print(f"Script execution completed successfully")
         return result.stdout
     except Exception as e:
@@ -165,6 +165,16 @@ def timetravel():
     """Render the time travel page."""
     return render_template('timetravel.html', notebook_path=NOTEBOOK_MAPPING.get('timetravel'))
 
+@app.route('/readme')
+def readme():
+    """Render the README page."""
+    return render_template('readme.html')
+
+@app.route('/performance')
+def performance():
+    """Render the performance optimization page."""
+    return render_template('performance.html')
+
 @app.route('/notebook/<path:notebook_name>')
 def open_notebook(notebook_name):
     """Redirect to the Jupyter notebook."""
@@ -185,7 +195,7 @@ def get_table_info():
     try:
         # Import PySpark and Delta Lake
         from pyspark.sql import SparkSession
-        
+
         # Create Spark session
         try:
             spark = utils.create_spark_session("Delta Lake UI")
@@ -246,7 +256,7 @@ def run_setup_api():
                 'success': False,
                 'error': f'Download script not found at {download_script}'
             })
-        
+
         # Check if the setup notebook exists
         notebook_path = os.path.join(NOTEBOOKS_DIR, NOTEBOOK_MAPPING.get('setup'))
         if not os.path.exists(notebook_path):
@@ -255,15 +265,15 @@ def run_setup_api():
                 'success': False,
                 'error': f'Setup notebook not found at {notebook_path}'
             })
-        
+
         # Run the download script
         print(f"Running download script: {download_script}")
         download_output = run_script(download_script)
-        
+
         # Run the setup notebook
         print(f"Running setup notebook: {notebook_path}")
         output_path = run_notebook(notebook_path)
-        
+
         return jsonify({
             'success': True,
             'message': 'Setup completed successfully',
@@ -290,17 +300,17 @@ def start_streaming_api():
 
         # Start the stream generator in the background
         script_path = os.path.join(SCRIPTS_DIR, 'stream_generator.py')
-        
+
         # Make sure the script exists and is executable
         if not os.path.exists(script_path):
             return jsonify({
                 'success': False,
                 'error': f'Stream generator script not found at {script_path}'
             })
-        
+
         # Make the script executable
         os.chmod(script_path, 0o755)
-        
+
         # Use the full path to python and the script
         cmd = [
             '/usr/local/bin/python',
@@ -367,17 +377,17 @@ def run_batch_update_api():
 
         # Run the batch updater script
         script_path = os.path.join(SCRIPTS_DIR, 'batch_updater.py')
-        
+
         # Make sure the script exists and is executable
         if not os.path.exists(script_path):
             return jsonify({
                 'success': False,
                 'error': f'Batch updater script not found at {script_path}'
             })
-            
+
         # Make the script executable
         os.chmod(script_path, 0o755)
-        
+
         cmd = [
             sys.executable, script_path,
             '--interval', str(interval),
@@ -645,6 +655,53 @@ def query_version_api():
             'count': count,
             'schema': schema,
             'sample': sample
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/performance_history', methods=['GET'])
+def performance_history_api():
+    """Get performance history."""
+    try:
+        # Import performance module
+        sys.path.append('/opt/spark/scripts')
+        import performance
+
+        # Get performance history
+        history = performance.get_performance_history()
+
+        return jsonify({
+            'success': True,
+            'history': history
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/recommend_optimizations', methods=['GET'])
+def recommend_optimizations_api():
+    """Get optimization recommendations."""
+    try:
+        # Import PySpark and performance module
+        from pyspark.sql import SparkSession
+        sys.path.append('/opt/spark/scripts')
+        import performance
+
+        # Create Spark session
+        spark = utils.create_spark_session("Delta Lake UI")
+
+        # Get recommendations
+        results = performance.recommend_optimizations(spark, DELTA_TABLE_PATH)
+
+        return jsonify({
+            'success': True,
+            'recommendations': results.get('recommendations', []),
+            'metrics': results.get('metrics', {})
         })
     except Exception as e:
         return jsonify({
