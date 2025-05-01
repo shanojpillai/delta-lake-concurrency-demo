@@ -90,60 +90,41 @@ The token will be displayed in the docker-compose logs.
 
 The Delta Lake Concurrency Demo is built with a modular architecture that showcases Delta Lake's capabilities in a real-world scenario.
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                           User Interfaces                                │
-│                                                                         │
-│  ┌───────────────┐   ┌───────────────┐   ┌───────────────────────────┐  │
-│  │  Web UI       │   │  Jupyter      │   │  Spark UI                 │  │
-│  │  (Port 5000)  │   │  (Port 8888)  │   │  (Port 4040)              │  │
-│  └───────┬───────┘   └───────┬───────┘   └───────────────────────────┘  │
-└──────────┼─────────────────────────────────────────────────────────────┘
-           │                     │
-           ▼                     ▼
-┌──────────────────────────────────────────────────────────────────────────┐
-│                           Application Layer                               │
-│                                                                          │
-│  ┌────────────────┐  ┌────────────────┐  ┌────────────────────────────┐  │
-│  │ Flask API      │  │ Jupyter        │  │ Delta Lake API             │  │
-│  │ Server         │  │ Notebooks      │  │ Integration                │  │
-│  └────────┬───────┘  └────────┬───────┘  └─────────────┬──────────────┘  │
-└───────────┼────────────────────────────────────────────────────────────┘
-            │                    │                        │
-            ▼                    ▼                        ▼
-┌───────────────────────────────────────────────────────────────────────────┐
-│                           Processing Layer                                 │
-│                                                                           │
-│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌──────────┐ │
-│  │ Batch          │  │ Streaming      │  │ MERGE          │  │ Schema    │ │
-│  │ Processing     │  │ Processing     │  │ Operations     │  │ Evolution │ │
-│  └────────┬───────┘  └────────┬───────┘  └────────┬───────┘  └─────┬────┘ │
-│           │                   │                   │                │      │
-│  ┌────────▼───────┐  ┌────────▼───────┐  ┌────────▼───────┐  ┌────▼─────┐ │
-│  │ Optimization   │  │ Concurrency    │  │ Time Travel    │  │ Vacuum   │ │
-│  │ (Z-Order)      │  │ Control        │  │ & Rollback     │  │          │ │
-│  └────────────────┘  └────────────────┘  └────────────────┘  └──────────┘ │
-└───────────────────────────────────┬─────────────────────────────────────┘
-                                    │
-                                    ▼
-┌───────────────────────────────────────────────────────────────────────────┐
-│                           Storage Layer                                    │
-│                                                                           │
-│  ┌────────────────────────────────────────────────────────────────────┐   │
-│  │                      Delta Lake Tables                              │   │
-│  │                                                                     │   │
-│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────┐ │   │
-│  │  │ Transaction Log │  │ Parquet Files   │  │ Checkpoint Files    │ │   │
-│  │  └─────────────────┘  └─────────────────┘  └─────────────────────┘ │   │
-│  └────────────────────────────────────────────────────────────────────┘   │
-│                                                                           │
-│  ┌────────────────────────────────────────────────────────────────────┐   │
-│  │                      File System (HDFS/Local)                       │   │
-│  └────────────────────────────────────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────────────────┘
-```
+![Delta Lake Architecture](docs/delta_lake_architecture_simple.png)
+
+*Note: If the image is not visible, you can generate it by running the architecture diagram script in the docs directory.*
+
+The architecture consists of four main layers:
+
+1. **User Interface Layer**: Web UI, Jupyter Notebooks, and Spark UI for user interaction
+2. **Application Layer**: Flask API Server, Jupyter Notebooks, and Delta Lake API Integration
+3. **Processing Layer**: Batch and Streaming Processing, MERGE Operations, Schema Evolution, etc.
+4. **Storage Layer**: Delta Lake Tables (Transaction Log, Parquet Files, Checkpoint Files) and File System
 
 For more details on the architecture, see [Architecture Documentation](docs/architecture_diagram.md).
+
+### Generating the Architecture Diagram
+
+To generate the architecture diagram, you need to have Python with the `diagrams` package and Graphviz installed:
+
+```bash
+# Install the diagrams package
+pip install diagrams
+
+# Install Graphviz (platform-specific)
+# For Ubuntu/Debian:
+# apt-get install graphviz
+# For macOS:
+# brew install graphviz
+# For Windows:
+# Download and install from https://graphviz.org/download/
+
+# Generate the diagram
+cd docs
+python architecture_diagram_simple.py
+```
+
+This will create a PNG file `delta_lake_architecture_simple.png` in the docs directory.
 
 ## Project Structure
 
