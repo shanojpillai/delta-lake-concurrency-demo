@@ -30,6 +30,9 @@ data/streaming/*
 data/stream_simulator/*
 data/batch_updates/*
 data/checkpoints/*
+data/stream/
+data/blockmgr-*/
+data/spark-*/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/streaming/.gitkeep
