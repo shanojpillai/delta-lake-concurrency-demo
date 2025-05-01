@@ -117,7 +117,10 @@ pip install diagrams
 # For macOS:
 # brew install graphviz
 # For Windows:
-# Download and install from https://graphviz.org/download/
+# 1. Download and install from https://graphviz.org/download/
+# 2. Add the Graphviz bin directory to your PATH environment variable
+#    (typically C:\Program Files\Graphviz\bin)
+# 3. Restart your terminal or command prompt
 
 # Generate the diagram
 cd docs
@@ -125,6 +128,11 @@ python architecture_diagram_simple.py
 ```
 
 This will create a PNG file `delta_lake_architecture_simple.png` in the docs directory.
+
+**Note for Windows users**: If you encounter an error about Graphviz executables not being found, make sure:
+1. Graphviz is properly installed
+2. The Graphviz bin directory is added to your PATH environment variable
+3. You've restarted your terminal/command prompt after installing Graphviz
 
 ## Project Structure
 
