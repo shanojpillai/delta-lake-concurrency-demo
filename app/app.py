@@ -365,6 +365,97 @@ def stop_streaming_api():
             'error': str(e)
         })
 
+@app.route('/api/run_merge', methods=['POST'])
+def run_merge_api():
+    """Run a MERGE operation on the Delta table."""
+    try:
+        # Import PySpark and Delta Lake
+        from pyspark.sql import SparkSession
+        from pyspark.sql.functions import col, lit, rand, expr, current_timestamp
+        from delta.tables import DeltaTable
+
+        # Create Spark session
+        spark = utils.create_spark_session("Delta Lake UI")
+
+        # Get parameters from request
+        data = request.json
+        update_count = int(data.get('update_count', 50))
+        insert_count = int(data.get('insert_count', 50))
+        new_column = data.get('new_column', 'Customer_Satisfaction')
+        new_column_value = data.get('new_column_value', '5')
+
+        # Check if Delta table exists
+        if not os.path.exists(DELTA_TABLE_PATH):
+            return jsonify({
+                'success': False,
+                'error': 'Delta table does not exist. Please run the setup first.'
+            })
+
+        # Load the Delta table
+        delta_table = DeltaTable.forPath(spark, DELTA_TABLE_PATH)
+        existing_df = delta_table.toDF()
+
+        # Get a sample of records to update
+        records_to_update = existing_df.limit(update_count)
+
+        # Create a template for new records
+        template_df = existing_df.limit(insert_count)
+
+        # Modify the records to update
+        records_to_update = records_to_update \
+            .withColumn("Sales", col("Sales") * (rand() * 0.4 + 0.8)) \
+            .withColumn("Profit", col("Profit") * (rand() * 0.4 + 0.8)) \
+            .withColumn("Update_Source", lit("merge_update")) \
+            .withColumn("Last_Updated", current_timestamp()) \
+            .withColumn(new_column, lit(new_column_value))
+
+        # Create new records
+        new_records = template_df \
+            .withColumn("Order_ID", expr("concat('NEW-', uuid())")) \
+            .withColumn("Update_Source", lit("merge_insert")) \
+            .withColumn("Last_Updated", current_timestamp()) \
+            .withColumn(new_column, lit(new_column_value))
+
+        # Combine updates and inserts into a single source DataFrame
+        source_df = records_to_update.union(new_records)
+
+        # Perform MERGE operation
+        merge_result = delta_table.alias("target") \
+            .merge(
+                source_df.alias("source"),
+                "target.Order_ID = source.Order_ID"
+            ) \
+            .whenMatchedUpdate(set={
+                "Sales": "source.Sales",
+                "Profit": "source.Profit",
+                "Quantity": "source.Quantity",
+                "Update_Source": "source.Update_Source",
+                "Last_Updated": "source.Last_Updated",
+                new_column: f"source.{new_column}"
+            }) \
+            .whenNotMatchedInsertAll() \
+            .execute()
+
+        # Get metrics
+        metrics = {
+            "updates": update_count,
+            "inserts": insert_count,
+            "unchanged": existing_df.count() - update_count
+        }
+
+        return jsonify({
+            'success': True,
+            'message': 'MERGE operation completed successfully',
+            'results': metrics
+        })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
 @app.route('/api/run_batch_update', methods=['POST'])
 def run_batch_update_api():
     """Run a batch update."""
@@ -548,6 +639,172 @@ def add_column_api():
         return jsonify({
             'success': True,
             'message': f'Added column {column_name} with value {column_value}'
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/widen_data_types', methods=['POST'])
+def widen_data_types_api():
+    """Widen data types in the Delta table."""
+    try:
+        # Import PySpark
+        from pyspark.sql import SparkSession
+        from pyspark.sql.functions import col, lit
+        from pyspark.sql.types import LongType, DoubleType, DecimalType
+
+        # Create Spark session
+        spark = utils.create_spark_session("Delta Lake UI")
+
+        # Read the Delta table
+        df = spark.read.format("delta").load(DELTA_TABLE_PATH)
+
+        # Get the schema
+        schema = df.schema
+
+        # Track which columns were widened
+        widened_columns = []
+
+        # Create a new DataFrame with widened columns
+        widened_df = df
+
+        # Check each column for potential widening
+        for field in schema.fields:
+            # Check if the column is a numeric type that can be widened
+            if field.dataType.typeName() == "integer":
+                # Widen integer to long
+                widened_df = widened_df.withColumn(field.name, col(field.name).cast(LongType()))
+                widened_columns.append(f"{field.name} (integer → long)")
+            elif field.dataType.typeName() == "float":
+                # Widen float to double
+                widened_df = widened_df.withColumn(field.name, col(field.name).cast(DoubleType()))
+                widened_columns.append(f"{field.name} (float → double)")
+            elif field.dataType.typeName() == "decimal":
+                # Widen decimal precision
+                current_precision = field.dataType.precision
+                current_scale = field.dataType.scale
+                if current_precision < 18:
+                    new_precision = 18
+                    new_scale = min(current_scale + 2, 6)  # Increase scale but cap at 6
+                    widened_df = widened_df.withColumn(field.name, col(field.name).cast(DecimalType(new_precision, new_scale)))
+                    widened_columns.append(f"{field.name} (decimal({current_precision},{current_scale}) → decimal({new_precision},{new_scale}))")
+
+        # Add a marker column to indicate the schema version
+        widened_df = widened_df.withColumn("Schema_Version", lit("widened"))
+
+        # If no columns were widened, return a message
+        if not widened_columns:
+            return jsonify({
+                'success': True,
+                'message': 'No columns were eligible for widening'
+            })
+
+        # Write back to the Delta table
+        widened_df.write \
+            .format("delta") \
+            .mode("overwrite") \
+            .option("overwriteSchema", "true") \
+            .save(DELTA_TABLE_PATH)
+
+        return jsonify({
+            'success': True,
+            'message': f'Widened data types for columns: {", ".join(widened_columns)}'
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/add_nested_structure', methods=['POST'])
+def add_nested_structure_api():
+    """Add a nested structure to the Delta table."""
+    try:
+        # Import PySpark
+        from pyspark.sql import SparkSession
+        from pyspark.sql.functions import col, struct, lit
+
+        # Create Spark session
+        spark = utils.create_spark_session("Delta Lake UI")
+
+        # Read the Delta table
+        df = spark.read.format("delta").load(DELTA_TABLE_PATH)
+
+        # Check if required columns exist
+        required_columns = ["Customer_ID", "Segment", "City", "State", "Country", "Postal_Code"]
+        missing_columns = [col for col in required_columns if col not in df.columns]
+
+        if missing_columns:
+            return jsonify({
+                'success': False,
+                'error': f'Missing required columns: {", ".join(missing_columns)}'
+            })
+
+        # Add nested structure
+        nested_df = df.withColumn(
+            "Customer_Details",
+            struct(
+                col("Customer_ID").alias("ID"),
+                col("Segment").alias("Segment"),
+                struct(
+                    col("City").alias("City"),
+                    col("State").alias("State"),
+                    col("Country").alias("Country"),
+                    col("Postal_Code").alias("Postal_Code")
+                ).alias("Address")
+            )
+        ).withColumn("Schema_Version", lit("nested"))
+
+        # Write back to the Delta table
+        nested_df.write \
+            .format("delta") \
+            .mode("overwrite") \
+            .option("overwriteSchema", "true") \
+            .save(DELTA_TABLE_PATH)
+
+        return jsonify({
+            'success': True,
+            'message': 'Added nested Customer_Details structure with Address sub-structure'
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/get_schema', methods=['GET'])
+def get_schema_api():
+    """Get the schema of the Delta table."""
+    try:
+        # Import PySpark
+        from pyspark.sql import SparkSession
+
+        # Create Spark session
+        spark = utils.create_spark_session("Delta Lake UI")
+
+        # Check if Delta table exists
+        if not os.path.exists(DELTA_TABLE_PATH):
+            return jsonify({
+                'success': False,
+                'error': 'Delta table does not exist. Please run the setup first.'
+            })
+
+        # Read the Delta table
+        df = spark.read.format("delta").load(DELTA_TABLE_PATH)
+
+        # Get the schema
+        schema = []
+        for field in df.schema.fields:
+            schema.append({
+                'name': field.name,
+                'type': field.dataType.simpleString()
+            })
+
+        return jsonify({
+            'success': True,
+            'schema': schema
         })
     except Exception as e:
         return jsonify({
