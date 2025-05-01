@@ -6,6 +6,7 @@
 [![Delta Lake](https://img.shields.io/badge/Delta%20Lake-Latest-green.svg)]()
 
 A comprehensive Docker-based project demonstrating Delta Lake's advanced features including concurrency control, streaming integration, schema evolution, and time travel capabilities using the Global Superstore dataset.
+![image](https://github.com/user-attachments/assets/c2c20f04-da28-41ba-8891-dd84b4f2ac19)
 
 ## Project Overview
 
